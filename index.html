@@ -6,7 +6,6 @@
     <title>Sistema de Gestión Empresarial - Chile</title>
     <style>
         /* ==================== ESTILOS GLOBALES ==================== */
-        /* Reset de márgenes y paddings para consistencia */
         * {
             margin: 0;
             padding: 0;
@@ -14,14 +13,12 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Fondo de la aplicación con gradiente profesional */
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
 
-        /* Contenedor principal de la aplicación */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -31,8 +28,7 @@
             overflow: hidden;
         }
 
-        /* ==================== ESTILOS DE LOGIN ==================== */
-        /* Pantalla de login - cubre toda la aplicación */
+        /* ==================== ESTILOS DE LOGIN Y REGISTRO ==================== */
         .login-screen {
             position: fixed;
             top: 0;
@@ -44,26 +40,33 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            transition: all 0.5s;
+            overflow-y: auto;
+            padding: 20px;
         }
 
-        /* Tarjeta de login */
         .login-card {
             background: white;
             padding: 40px;
             border-radius: 20px;
             width: 90%;
-            max-width: 400px;
+            max-width: 450px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
         .login-card h2 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             color: #2c3e50;
         }
 
-        .login-card input {
+        .login-card h3 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .login-card input, .login-card select {
             width: 100%;
             padding: 12px;
             margin-bottom: 15px;
@@ -82,13 +85,21 @@
             font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
+            margin-bottom: 10px;
         }
 
         .login-card button:hover {
             background: #229954;
         }
 
-        /* Mensaje de error en login */
+        .btn-secondary-login {
+            background: #3498db !important;
+        }
+
+        .btn-secondary-login:hover {
+            background: #2980b9 !important;
+        }
+
         .login-error {
             color: #e74c3c;
             text-align: center;
@@ -96,8 +107,27 @@
             font-size: 0.9rem;
         }
 
+        .login-success {
+            color: #27ae60;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .toggle-form {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #3498db;
+            cursor: pointer;
+        }
+
+        .toggle-form:hover {
+            text-decoration: underline;
+        }
+
         /* ==================== ESTILOS DE LA APP PRINCIPAL ==================== */
-        /* Header de la aplicación */
         header {
             background: #2c3e50;
             color: white;
@@ -109,7 +139,6 @@
             gap: 15px;
         }
 
-        /* Información de la empresa en el header */
         .empresa-info {
             display: flex;
             align-items: center;
@@ -119,12 +148,6 @@
             border-radius: 10px;
         }
 
-        .empresa-nombre {
-            font-weight: bold;
-            color: #3498db;
-        }
-
-        /* Botones generales */
         .btn {
             padding: 10px 20px;
             border: none;
@@ -144,7 +167,6 @@
         .btn-warning { background: #f39c12; color: white; }
         .btn-secondary { background: #95a5a6; color: white; }
 
-        /* Sistema de pestañas */
         .tabs {
             display: flex;
             background: #ecf0f1;
@@ -170,7 +192,6 @@
             color: #3498db;
         }
 
-        /* Contenido de las pestañas */
         .tab-content {
             display: none;
             padding: 30px;
@@ -186,7 +207,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Formularios */
         .form-group {
             margin-bottom: 20px;
         }
@@ -211,7 +231,6 @@
             border-color: #3498db;
         }
 
-        /* Tablas responsivas */
         .table-responsive {
             overflow-x: auto;
             margin-top: 20px;
@@ -237,12 +256,10 @@
             background: #f5f5f5;
         }
 
-        /* Productos con stock bajo */
         .inventory-low {
             background: #ffe6e6;
         }
 
-        /* Totales y cálculos */
         .total-venta {
             font-size: 1.5rem;
             font-weight: bold;
@@ -253,7 +270,6 @@
             border-radius: 10px;
         }
 
-        /* Tarjetas de estadísticas */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -269,23 +285,10 @@
             text-align: center;
         }
 
-        .stat-card h3 {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .stat-card .value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        /* Tarjeta de ganancias especial */
         .profit-card {
             background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
         }
 
-        /* Modal del escáner */
         .modal {
             display: none;
             position: fixed;
@@ -307,7 +310,6 @@
             width: 90%;
         }
 
-        /* Mensajes de error */
         .error-msg {
             background: #e74c3c;
             color: white;
@@ -317,7 +319,6 @@
             display: none;
         }
 
-        /* Responsive para móviles */
         @media (max-width: 768px) {
             .tab-content {
                 padding: 15px;
@@ -330,31 +331,46 @@
                 padding: 8px 12px;
                 font-size: 0.8rem;
             }
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- ==================== PANTALLA DE LOGIN ==================== -->
+    <!-- ==================== PANTALLA DE LOGIN/REGISTRO ==================== -->
     <div id="loginScreen" class="login-screen">
         <div class="login-card">
-            <h2>🏢 Sistema de Gestión</h2>
-            <h3 style="text-align:center; margin-bottom:20px; color:#666;">Iniciar Sesión</h3>
-            <input type="text" id="loginEmpresa" placeholder="Nombre de la Empresa" autocomplete="off">
-            <input type="password" id="loginPassword" placeholder="Contraseña">
-            <button onclick="iniciarSesion()">Ingresar</button>
-            <div id="loginError" class="login-error"></div>
-            <hr style="margin: 20px 0;">
-            <p style="text-align:center; font-size:0.8rem; color:#666;">Empresas de prueba:</p>
-            <p style="text-align:center; font-size:0.8rem; color:#666;">📦 MiEmpresa / admin123</p>
-            <p style="text-align:center; font-size:0.8rem; color:#666;">🛒 TiendaChile / chile2024</p>
-            <p style="text-align:center; font-size:0.8rem; color:#666;">💼 ComercialABC / abc123</p>
+            <!-- Formulario de Login -->
+            <div id="loginForm">
+                <h2>🏢 Sistema de Gestión</h2>
+                <h3>Iniciar Sesión</h3>
+                <input type="text" id="loginUsuario" placeholder="Usuario de la empresa" autocomplete="off">
+                <input type="password" id="loginPassword" placeholder="Contraseña">
+                <button onclick="iniciarSesion()">Ingresar</button>
+                <div id="loginError" class="login-error"></div>
+                <div class="toggle-form" onclick="mostrarRegistro()">
+                    ¿No tienes una empresa? Crea una nueva →
+                </div>
+            </div>
+
+            <!-- Formulario de Registro de Nueva Empresa -->
+            <div id="registroForm" style="display: none;">
+                <h2>🏢 Crear Nueva Empresa</h2>
+                <h3>Registra tu negocio</h3>
+                <input type="text" id="regUsuario" placeholder="Usuario (ej: MiTienda)" autocomplete="off">
+                <input type="text" id="regNombre" placeholder="Nombre comercial de la empresa">
+                <input type="text" id="regRut" placeholder="RUT (opcional)">
+                <input type="password" id="regPassword" placeholder="Contraseña">
+                <input type="password" id="regPasswordConfirm" placeholder="Confirmar contraseña">
+                <button onclick="registrarEmpresa()">📝 Crear Empresa</button>
+                <div id="regError" class="login-error"></div>
+                <div id="regSuccess" class="login-success"></div>
+                <div class="toggle-form" onclick="mostrarLogin()">
+                    ← Volver al inicio de sesión
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- ==================== APLICACIÓN PRINCIPAL (oculta hasta login) ==================== -->
+    <!-- ==================== APLICACIÓN PRINCIPAL ==================== -->
     <div id="mainApp" class="container" style="display: none;">
         <header>
             <h1>📦 Sistema de Gestión Empresarial</h1>
@@ -364,7 +380,6 @@
             </div>
         </header>
 
-        <!-- Navegación por pestañas -->
         <div class="tabs">
             <button class="tab active" onclick="mostrarTab('inventario')">📦 Inventario</button>
             <button class="tab" onclick="mostrarTab('ventas')">🛒 Punto de Venta</button>
@@ -374,7 +389,7 @@
 
         <div id="errorBox" class="error-msg"></div>
 
-        <!-- ==================== PANEL DE INVENTARIO ==================== -->
+        <!-- INVENTARIO -->
         <div id="inventario" class="tab-content active">
             <h2>Gestión de Inventario</h2>
             <form id="formProducto" onsubmit="guardarProducto(event)">
@@ -382,7 +397,7 @@
                 <div class="form-group">
                     <label>Código de Barras *</label>
                     <input type="text" id="codigo" required placeholder="Código o escanear">
-                    <button type="button" class="btn btn-primary" style="margin-top:5px" onclick="abrirScanner('inventario')">📷 Escanear Código</button>
+                    <button type="button" class="btn btn-primary" style="margin-top:5px" onclick="abrirScanner('inventario')">📷 Escanear</button>
                 </div>
                 <div class="form-group">
                     <label>Nombre del Producto *</label>
@@ -400,83 +415,58 @@
                     <label>Cantidad en Stock *</label>
                     <input type="number" id="stock" step="1" required>
                 </div>
-                <button type="submit" class="btn btn-success">💾 Guardar Producto</button>
-                <button type="button" class="btn btn-danger" onclick="cancelarEdicion()">❌ Cancelar</button>
+                <button type="submit" class="btn btn-success">💾 Guardar</button>
+                <button type="button" class="btn btn-danger" onclick="cancelarEdicion()">Cancelar</button>
             </form>
-
             <div class="table-responsive">
                 <table>
-                    <thead>
-                        <tr><th>Código</th><th>Nombre</th><th>Precio Venta</th><th>Costo</th><th>Stock</th><th>Ganancia Unidad</th><th>Valor Inventario</th><th>Acciones</th>
-                    </thead>
+                    <thead><tr><th>Código</th><th>Nombre</th><th>Precio</th><th>Costo</th><th>Stock</th><th>Ganancia</th><th>Valor Inv.</th><th>Acciones</th></tr></thead>
                     <tbody id="tablaInventario"></tbody>
                 </table>
             </div>
         </div>
 
-        <!-- ==================== PANEL DE VENTAS ==================== -->
+        <!-- VENTAS -->
         <div id="ventas" class="tab-content">
             <h2>Punto de Venta</h2>
             <div class="search-box">
                 <input type="text" id="buscarVenta" placeholder="Buscar por código o nombre..." onkeyup="buscarProductoVenta(event)">
-                <button class="btn btn-primary" onclick="abrirScanner('venta')" style="margin-top:5px">📷 Escanear Código</button>
+                <button class="btn btn-primary" onclick="abrirScanner('venta')" style="margin-top:5px">📷 Escanear</button>
             </div>
-
             <div class="table-responsive">
                 <table>
-                    <thead>
-                        <tr><th>Código</th><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th><th>Acción</th></tr>
-                    </thead>
+                    <thead><tr><th>Código</th><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th><th>Acción</th></tr></thead>
                     <tbody id="carritoBody"></tbody>
                 </table>
             </div>
             <div class="total-venta">Total Venta: $<span id="totalVenta">0</span></div>
             <div style="display:flex; gap:10px; margin-top:20px">
-                <button class="btn btn-success" onclick="finalizarVenta()">✅ Cobrar Venta</button>
-                <button class="btn btn-danger" onclick="limpiarCarrito()">🗑 Vaciar Carrito</button>
+                <button class="btn btn-success" onclick="finalizarVenta()">✅ Cobrar</button>
+                <button class="btn btn-danger" onclick="limpiarCarrito()">🗑 Vaciar</button>
             </div>
         </div>
 
-        <!-- ==================== PANEL DE FINANZAS (con impuestos chilenos) ==================== -->
+        <!-- FINANZAS -->
         <div id="finanzas" class="tab-content">
             <h2>💰 Análisis Financiero - Chile</h2>
-            
-            <!-- Tarjetas de resumen financiero -->
-            <div class="stats-grid" id="finanzasStats">
-                <!-- Se llena dinámicamente -->
-            </div>
-
+            <div class="stats-grid" id="finanzasStats"></div>
             <h3>📊 Detalle de Ganancias por Producto</h3>
             <div class="table-responsive">
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Unidades Vendidas</th>
-                            <th>Ingreso Bruto</th>
-                            <th>Costo Total</th>
-                            <th>Ganancia Bruta</th>
-                            <th>IVA (19%)</th>
-                            <th>Ganancia Neta</th>
-                            <th>Margen</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Producto</th><th>Unidades</th><th>Ingreso</th><th>Costo Total</th><th>Ganancia Bruta</th><th>IVA 19%</th><th>Ganancia Neta</th><th>Margen</th></tr></thead>
                     <tbody id="tablaGanancias"></tbody>
                 </table>
             </div>
-
-            <h3 style="margin-top:30px;">📈 Resumen de Ventas con Impuestos</h3>
+            <h3>📈 Historial con Impuestos</h3>
             <div class="table-responsive">
                 <table>
-                    <thead>
-                        <tr><th>Fecha</th><th>Total Venta</th><th>IVA (19%)</th><th>Neto</th><th>Productos</th></tr>
-                    </thead>
+                    <thead><tr><th>Fecha</th><th>Total</th><th>IVA 19%</th><th>Neto</th><th>Productos</th></tr></thead>
                     <tbody id="historialVentasDetalle"></tbody>
                 </table>
             </div>
         </div>
 
-        <!-- ==================== PANEL DE REPORTES ==================== -->
+        <!-- REPORTES -->
         <div id="reportes" class="tab-content">
             <h2>📈 Reportes Generales</h2>
             <div class="stats-grid" id="statsContainer"></div>
@@ -490,98 +480,181 @@
         </div>
     </div>
 
-    <!-- Modal para escáner de códigos -->
+    <!-- Modal escáner -->
     <div id="scannerModal" class="modal">
         <div class="modal-content">
-            <h3>📷 Escáner de Código de Barras</h3>
-            <input type="text" id="scannerInput" placeholder="Escanea o ingresa el código..." autofocus>
+            <h3>📷 Escáner de Código</h3>
+            <input type="text" id="scannerInput" placeholder="Código escaneado..." autofocus>
             <div style="margin-top:15px; display:flex; gap:10px">
                 <button class="btn btn-success" onclick="procesarEscaneo()">Aceptar</button>
                 <button class="btn btn-danger" onclick="cerrarScanner()">Cancelar</button>
             </div>
-            <p style="margin-top:10px; font-size:12px; color:#666;">* En Android, el lector físico enviará el código automáticamente</p>
         </div>
     </div>
 
     <script>
         // ==================== VARIABLES GLOBALES ====================
-        // db: base de datos IndexedDB (almacenamiento local del navegador)
-        // empresaActual: empresa que ha iniciado sesión
-        // carrito: productos seleccionados para la venta actual
         let db = null;
         let empresaActual = null;
         let carrito = [];
         let scannerOrigen = null;
 
-        // ==================== CONFIGURACIÓN DE IMPUESTOS CHILENOS ====================
-        // En Chile, el IVA es del 19% sobre el valor de la venta
-        const IVA_CHILE = 0.19; // 19%
+        const IVA_CHILE = 0.19;
+        
+        // Clave para almacenar empresas en localStorage
+        const STORAGE_KEY = 'empresas_registradas';
 
-        // ==================== EMPRESAS REGISTRADAS (Base de datos de empresas) ====================
-        // Cada empresa tiene su propio espacio de datos en IndexedDB
-        const empresasRegistradas = {
-            'MiEmpresa': { password: 'admin123', nombre: 'Mi Empresa SpA', rut: '76.123.456-7' },
-            'TiendaChile': { password: 'chile2024', nombre: 'Tienda Chile Ltda', rut: '77.987.654-3' },
-            'ComercialABC': { password: 'abc123', nombre: 'Comercial ABC S.A.', rut: '78.456.789-2' }
-        };
+        // ==================== GESTIÓN DE EMPRESAS (localStorage) ====================
+        // Obtener todas las empresas registradas desde localStorage
+        function obtenerEmpresas() {
+            const empresas = localStorage.getItem(STORAGE_KEY);
+            if (empresas) {
+                return JSON.parse(empresas);
+            }
+            // Empresas de demostración iniciales
+            const empresasDemo = {
+                'MiEmpresa': { password: 'admin123', nombre: 'Mi Empresa SpA', rut: '76.123.456-7', fechaCreacion: new Date().toISOString() },
+                'TiendaChile': { password: 'chile2024', nombre: 'Tienda Chile Ltda', rut: '77.987.654-3', fechaCreacion: new Date().toISOString() },
+                'ComercialABC': { password: 'abc123', nombre: 'Comercial ABC S.A.', rut: '78.456.789-2', fechaCreacion: new Date().toISOString() }
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(empresasDemo));
+            return empresasDemo;
+        }
 
-        // ==================== FUNCIONES DE LOGIN ====================
-        function iniciarSesion() {
-            const empresaId = document.getElementById('loginEmpresa').value.trim();
-            const password = document.getElementById('loginPassword').value;
+        // Guardar empresas en localStorage
+        function guardarEmpresas(empresas) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(empresas));
+        }
+
+        // Registrar nueva empresa
+        function registrarEmpresa() {
+            const usuario = document.getElementById('regUsuario').value.trim();
+            const nombre = document.getElementById('regNombre').value.trim();
+            const rut = document.getElementById('regRut').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regPasswordConfirm').value;
             
-            if (!empresaId || !password) {
-                document.getElementById('loginError').textContent = 'Por favor ingresa empresa y contraseña';
+            // Validaciones
+            if (!usuario || !nombre || !password) {
+                mostrarRegError('Completa todos los campos obligatorios');
                 return;
             }
             
-            const empresa = empresasRegistradas[empresaId];
+            if (password !== confirmPassword) {
+                mostrarRegError('Las contraseñas no coinciden');
+                return;
+            }
+            
+            if (password.length < 4) {
+                mostrarRegError('La contraseña debe tener al menos 4 caracteres');
+                return;
+            }
+            
+            const empresas = obtenerEmpresas();
+            
+            if (empresas[usuario]) {
+                mostrarRegError('El nombre de usuario ya existe. Elige otro');
+                return;
+            }
+            
+            // Crear nueva empresa
+            empresas[usuario] = {
+                password: password,
+                nombre: nombre || usuario,
+                rut: rut || 'Sin RUT',
+                fechaCreacion: new Date().toISOString()
+            };
+            
+            guardarEmpresas(empresas);
+            
+            // Mostrar éxito y cambiar a login
+            document.getElementById('regSuccess').textContent = '✅ Empresa creada con éxito. Ahora inicia sesión.';
+            document.getElementById('regError').textContent = '';
+            
+            // Limpiar campos
+            document.getElementById('regUsuario').value = '';
+            document.getElementById('regNombre').value = '';
+            document.getElementById('regRut').value = '';
+            document.getElementById('regPassword').value = '';
+            document.getElementById('regPasswordConfirm').value = '';
+            
+            // Cambiar a login después de 2 segundos
+            setTimeout(() => {
+                mostrarLogin();
+            }, 2000);
+        }
+        
+        function mostrarRegError(msg) {
+            document.getElementById('regError').textContent = msg;
+            document.getElementById('regSuccess').textContent = '';
+        }
+        
+        function mostrarRegistro() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registroForm').style.display = 'block';
+            document.getElementById('regError').textContent = '';
+            document.getElementById('regSuccess').textContent = '';
+        }
+        
+        function mostrarLogin() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registroForm').style.display = 'none';
+            document.getElementById('loginError').textContent = '';
+        }
+
+        // ==================== FUNCIONES DE LOGIN ====================
+        function iniciarSesion() {
+            const usuario = document.getElementById('loginUsuario').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!usuario || !password) {
+                document.getElementById('loginError').textContent = 'Por favor ingresa usuario y contraseña';
+                return;
+            }
+            
+            const empresas = obtenerEmpresas();
+            const empresa = empresas[usuario];
+            
             if (!empresa || empresa.password !== password) {
-                document.getElementById('loginError').textContent = 'Empresa o contraseña incorrecta';
+                document.getElementById('loginError').textContent = 'Usuario o contraseña incorrecta';
                 return;
             }
             
             // Login exitoso
             empresaActual = {
-                id: empresaId,
+                id: usuario,
                 nombre: empresa.nombre,
                 rut: empresa.rut
             };
             
-            // Mostrar nombre de empresa en el header
             document.getElementById('empresaNombreDisplay').textContent = `${empresa.nombre} (${empresa.rut})`;
-            
-            // Ocultar pantalla de login y mostrar aplicación
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
             
-            // Inicializar base de datos para esta empresa
             iniciarBD();
         }
         
         function cerrarSesion() {
-            // Cerrar sesión y volver a pantalla de login
             empresaActual = null;
             db = null;
             carrito = [];
             document.getElementById('loginScreen').style.display = 'flex';
             document.getElementById('mainApp').style.display = 'none';
-            document.getElementById('loginEmpresa').value = '';
+            document.getElementById('loginUsuario').value = '';
             document.getElementById('loginPassword').value = '';
             document.getElementById('loginError').textContent = '';
+            mostrarLogin();
         }
 
-        // ==================== BASE DE DATOS INDEXEDDB (Separada por empresa) ====================
-        // Cada empresa tiene su propia base de datos: Gestion_ + nombreEmpresa
+        // ==================== BASE DE DATOS INDEXEDDB ====================
         function iniciarBD() {
             if (!empresaActual) return;
             
-            // Nombre único de base de datos por empresa
             const dbName = `Gestion_${empresaActual.id}`;
             const dbVersion = 1;
             
             if (!window.indexedDB) {
-                mostrarError("Tu navegador no soporta IndexedDB. Usa Chrome, Firefox o Edge.");
+                mostrarError("Tu navegador no soporta IndexedDB");
                 return;
             }
             
@@ -591,7 +664,6 @@
             
             request.onsuccess = (e) => {
                 db = e.target.result;
-                console.log(`Base de datos cargada para ${empresaActual.nombre}`);
                 cargarInventario();
                 cargarHistorial();
                 actualizarEstadisticas();
@@ -601,29 +673,25 @@
             request.onupgradeneeded = (e) => {
                 const db = e.target.result;
                 
-                // Crear almacén de productos si no existe
                 if (!db.objectStoreNames.contains('productos')) {
                     const store = db.createObjectStore('productos', { keyPath: 'id', autoIncrement: true });
                     store.createIndex('codigo', 'codigo', { unique: true });
                 }
                 
-                // Crear almacén de ventas si no existe
                 if (!db.objectStoreNames.contains('ventas')) {
                     db.createObjectStore('ventas', { keyPath: 'id', autoIncrement: true });
                 }
                 
-                // Datos de demostración para la empresa
+                // Datos de demostración para nueva empresa
                 const transaction = e.target.transaction;
                 const productosStore = transaction.objectStore('productos');
                 
                 productosStore.count().onsuccess = (ev) => {
                     if (ev.target.result === 0) {
-                        // Productos de ejemplo con costos reales
                         productosStore.add({ codigo: '750123456789', nombre: 'Laptop HP 15"', precio: 650000, costo: 520000, stock: 10 });
                         productosStore.add({ codigo: '750987654321', nombre: 'Mouse Logitech', precio: 25000, costo: 15000, stock: 25 });
                         productosStore.add({ codigo: '750456789123', nombre: 'Teclado Mecánico', precio: 85000, costo: 55000, stock: 15 });
                         productosStore.add({ codigo: '750789123456', nombre: 'Monitor 24"', precio: 220000, costo: 180000, stock: 8 });
-                        productosStore.add({ codigo: '780123456789', nombre: 'Silla Gamer', precio: 350000, costo: 280000, stock: 5 });
                     }
                 };
             };
@@ -643,29 +711,23 @@
             return div.innerHTML;
         }
 
-        // ==================== INVENTARIO (CRUD completo) ====================
+        // ==================== INVENTARIO ====================
         function cargarInventario() {
             if (!db) return;
-            
             const transaction = db.transaction(['productos'], 'readonly');
-            const store = transaction.objectStore('productos');
-            store.getAll().onsuccess = (e) => {
+            transaction.objectStore('productos').getAll().onsuccess = (e) => {
                 const productos = e.target.result;
                 const tbody = document.getElementById('tablaInventario');
-                
                 if (productos.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center">Sin productos. Agrega tu primer producto ↑</td></tr>';
+                    tbody.innerHTML = '运转<td colspan="8" style="text-align:center">Sin productos. Agrega tu primer producto ↑</td></tr>';
                     return;
                 }
-                
                 tbody.innerHTML = '';
                 productos.forEach(p => {
                     const gananciaUnidad = p.precio - p.costo;
                     const valorInventario = p.stock * p.costo;
                     const row = tbody.insertRow();
-                    
                     if (p.stock < 5) row.className = 'inventory-low';
-                    
                     row.innerHTML = `
                         <td>${p.codigo}</td>
                         <td>${escapeHtml(p.nombre)}</td>
@@ -674,10 +736,8 @@
                         <td>${p.stock}</td>
                         <td style="color: ${gananciaUnidad > 0 ? '#27ae60' : '#e74c3c'}">$${gananciaUnidad.toLocaleString('es-CL')}</td>
                         <td>$${valorInventario.toLocaleString('es-CL')}</td>
-                        <td>
-                            <button class="btn btn-primary" onclick="editarProducto(${p.id})">✏️</button>
-                            <button class="btn btn-danger" onclick="eliminarProducto(${p.id})">🗑️</button>
-                        </td>
+                        <td><button class="btn btn-primary" onclick="editarProducto(${p.id})">✏️</button>
+                            <button class="btn btn-danger" onclick="eliminarProducto(${p.id})">🗑️</button></td>
                     `;
                 });
                 actualizarEstadisticas();
@@ -697,12 +757,12 @@
             const stock = parseInt(document.getElementById('stock').value);
             
             if (!codigo || !nombre || isNaN(precio) || isNaN(costo) || isNaN(stock)) {
-                mostrarError("Completa todos los campos obligatorios");
+                mostrarError("Completa todos los campos");
                 return;
             }
             
             if (precio <= costo) {
-                mostrarError("El precio de venta debe ser mayor al costo para tener ganancia");
+                mostrarError("El precio de venta debe ser mayor al costo");
                 return;
             }
             
@@ -747,11 +807,10 @@
         }
         
         function eliminarProducto(id) {
-            if (!confirm("¿Eliminar este producto permanentemente?")) return;
+            if (!confirm("¿Eliminar producto?")) return;
             const transaction = db.transaction(['productos'], 'readwrite');
             transaction.objectStore('productos').delete(id).onsuccess = () => {
                 cargarInventario();
-                actualizarFinanzas();
             };
         }
         
@@ -760,17 +819,14 @@
             document.getElementById('formProducto').reset();
         }
 
-        // ==================== VENTAS (Punto de venta con control de stock) ====================
+        // ==================== VENTAS ====================
         function buscarProductoVenta(event) {
             const texto = event.target.value.trim().toLowerCase();
             if (!texto) return;
             if (!db) return;
-            
             const transaction = db.transaction(['productos'], 'readonly');
             transaction.objectStore('productos').getAll().onsuccess = (e) => {
-                const producto = e.target.result.find(p => 
-                    p.codigo.toLowerCase() === texto || p.nombre.toLowerCase().includes(texto)
-                );
+                const producto = e.target.result.find(p => p.codigo.toLowerCase() === texto || p.nombre.toLowerCase().includes(texto));
                 if (producto) {
                     agregarAlCarrito(producto);
                     document.getElementById('buscarVenta').value = '';
@@ -784,23 +840,18 @@
             const existente = carrito.find(i => i.id === producto.id);
             if (existente) {
                 if (existente.cantidad + cant > producto.stock) {
-                    mostrarError(`Stock insuficiente. Quedan ${producto.stock} unidades`);
+                    mostrarError(`Stock insuficiente. Quedan ${producto.stock}`);
                     return;
                 }
                 existente.cantidad += cant;
             } else {
                 if (cant > producto.stock) {
-                    mostrarError(`Stock insuficiente. Solo hay ${producto.stock} unidades`);
+                    mostrarError(`Stock insuficiente`);
                     return;
                 }
                 carrito.push({
-                    id: producto.id,
-                    codigo: producto.codigo,
-                    nombre: producto.nombre,
-                    precio: producto.precio,
-                    costo: producto.costo,
-                    cantidad: cant,
-                    stockMax: producto.stock
+                    id: producto.id, codigo: producto.codigo, nombre: producto.nombre,
+                    precio: producto.precio, costo: producto.costo, cantidad: cant, stockMax: producto.stock
                 });
             }
             actualizarCarrito();
@@ -810,20 +861,13 @@
             const tbody = document.getElementById('carritoBody');
             tbody.innerHTML = '';
             let total = 0;
-            
             carrito.forEach((item, i) => {
                 const subtotal = item.precio * item.cantidad;
                 total += subtotal;
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${item.codigo}</td>
-                        <td>${escapeHtml(item.nombre)}</td>
-                        <td>$${item.precio.toLocaleString('es-CL')}</td>
-                        <td><input type="number" value="${item.cantidad}" min="1" max="${item.stockMax}" style="width:70px" onchange="cambiarCantidad(${i}, this.value)"></td>
-                        <td>$${subtotal.toLocaleString('es-CL')}</td>
-                        <td><button class="btn btn-danger" onclick="eliminarDelCarrito(${i})">❌</button></td>
-                    </tr>
-                `;
+                tbody.innerHTML += `<tr><td>${item.codigo}</td><td>${escapeHtml(item.nombre)}</td><td>$${item.precio.toLocaleString('es-CL')}</td>
+                <td><input type="number" value="${item.cantidad}" min="1" max="${item.stockMax}" style="width:70px" onchange="cambiarCantidad(${i}, this.value)"></td>
+                <td>$${subtotal.toLocaleString('es-CL')}</td>
+                <td><button class="btn btn-danger" onclick="eliminarDelCarrito(${i})">❌</button></td></tr>`;
             });
             document.getElementById('totalVenta').innerText = total.toLocaleString('es-CL');
         }
@@ -831,75 +875,36 @@
         function cambiarCantidad(index, nueva) {
             const cant = parseInt(nueva);
             if (isNaN(cant) || cant < 1) return;
-            if (cant > carrito[index].stockMax) {
-                mostrarError("Stock máximo superado");
-                actualizarCarrito();
-                return;
-            }
+            if (cant > carrito[index].stockMax) { mostrarError("Stock máximo"); actualizarCarrito(); return; }
             carrito[index].cantidad = cant;
             actualizarCarrito();
         }
         
-        function eliminarDelCarrito(index) {
-            carrito.splice(index, 1);
-            actualizarCarrito();
-        }
-        
-        function limpiarCarrito() {
-            carrito = [];
-            actualizarCarrito();
-        }
+        function eliminarDelCarrito(index) { carrito.splice(index, 1); actualizarCarrito(); }
+        function limpiarCarrito() { carrito = []; actualizarCarrito(); }
         
         function finalizarVenta() {
-            if (carrito.length === 0) {
-                mostrarError("Carrito vacío");
-                return;
-            }
-            
+            if (carrito.length === 0) { mostrarError("Carrito vacío"); return; }
             const totalVenta = carrito.reduce((s, i) => s + (i.precio * i.cantidad), 0);
             const iva = totalVenta * IVA_CHILE;
-            const neto = totalVenta - iva;
-            
-            if (!confirm(`Total Venta: $${totalVenta.toLocaleString('es-CL')}\nIVA (19%): $${iva.toLocaleString('es-CL')}\nNeto: $${neto.toLocaleString('es-CL')}\n\n¿Confirmar venta?`)) return;
+            if (!confirm(`Total: $${totalVenta.toLocaleString('es-CL')}\nIVA: $${iva.toLocaleString('es-CL')}\n¿Confirmar?`)) return;
             
             const fecha = new Date().toLocaleString('es-CL');
-            
             const transaction = db.transaction(['productos', 'ventas'], 'readwrite');
             const prodStore = transaction.objectStore('productos');
             const ventasStore = transaction.objectStore('ventas');
-            
-            let pendientes = carrito.length;
-            let error = false;
+            let pendientes = carrito.length, error = false;
             
             carrito.forEach(item => {
                 prodStore.get(item.id).onsuccess = (e) => {
                     const prod = e.target.result;
-                    if (prod.stock >= item.cantidad) {
-                        prod.stock -= item.cantidad;
-                        prodStore.put(prod);
-                    } else {
-                        error = true;
-                        mostrarError(`Stock insuficiente para ${prod.nombre}`);
-                    }
+                    if (prod.stock >= item.cantidad) { prod.stock -= item.cantidad; prodStore.put(prod); }
+                    else { error = true; mostrarError(`Stock insuficiente para ${prod.nombre}`); }
                     pendientes--;
-                    
                     if (pendientes === 0 && !error) {
-                        // Guardar venta con detalles de impuestos
-                        ventasStore.add({
-                            fecha: fecha,
-                            total: totalVenta,
-                            iva: iva,
-                            neto: neto,
-                            productos: carrito.map(p => ({ 
-                                nombre: p.nombre, 
-                                cantidad: p.cantidad, 
-                                precio: p.precio,
-                                costo: p.costo,
-                                gananciaUnidad: p.precio - p.costo
-                            }))
-                        });
-                        
-                        alert(`✅ Venta registrada\nTotal: $${totalVenta.toLocaleString('es-CL')}\nIVA: $${iva.toLocaleString('es-CL')}`);
+                        ventasStore.add({ fecha, total: totalVenta, iva, neto: totalVenta - iva,
+                            productos: carrito.map(p => ({ nombre: p.nombre, cantidad: p.cantidad, precio: p.precio, costo: p.costo })) });
+                        alert(`✅ Venta registrada por $${totalVenta.toLocaleString('es-CL')}`);
                         limpiarCarrito();
                         cargarInventario();
                         cargarHistorial();
@@ -910,50 +915,31 @@
             });
         }
 
-        // ==================== FINANZAS (Cálculos con impuestos chilenos) ====================
+        // ==================== FINANZAS ====================
         function actualizarFinanzas() {
             if (!db) return;
-            
             const transaction = db.transaction(['productos', 'ventas'], 'readonly');
             const prodStore = transaction.objectStore('productos');
             const ventasStore = transaction.objectStore('ventas');
             
-            // Obtener todos los productos para calcular inversión
             prodStore.getAll().onsuccess = (e) => {
                 const productos = e.target.result;
-                const inversionTotal = productos.reduce((sum, p) => sum + (p.stock * p.costo), 0);
-                const valorStockVenta = productos.reduce((sum, p) => sum + (p.stock * p.precio), 0);
-                const gananciaPotencial = valorStockVenta - inversionTotal;
-                const ivaPotencial = gananciaPotencial * IVA_CHILE;
+                const inversionTotal = productos.reduce((s, p) => s + (p.stock * p.costo), 0);
+                const valorStockVenta = productos.reduce((s, p) => s + (p.stock * p.precio), 0);
                 
                 ventasStore.getAll().onsuccess = (ev) => {
                     const ventas = ev.target.result;
-                    
-                    // Calcular ganancias reales por ventas
-                    let ventasTotales = 0;
-                    let costosTotales = 0;
-                    let ivaTotal = 0;
-                    let gananciaNetaTotal = 0;
-                    
-                    // Estadísticas por producto
+                    let ventasTotales = 0, costosTotales = 0, ivaTotal = 0;
                     const gananciasPorProducto = {};
                     
                     ventas.forEach(venta => {
                         ventasTotales += venta.total;
-                        ivaTotal += venta.iva || (venta.total * IVA_CHILE);
-                        
+                        ivaTotal += venta.iva;
                         venta.productos.forEach(p => {
                             const gananciaBruta = (p.precio - p.costo) * p.cantidad;
                             costosTotales += p.costo * p.cantidad;
-                            
                             if (!gananciasPorProducto[p.nombre]) {
-                                gananciasPorProducto[p.nombre] = {
-                                    nombre: p.nombre,
-                                    unidades: 0,
-                                    ingresoBruto: 0,
-                                    costoTotal: 0,
-                                    gananciaBruta: 0
-                                };
+                                gananciasPorProducto[p.nombre] = { nombre: p.nombre, unidades: 0, ingresoBruto: 0, costoTotal: 0, gananciaBruta: 0 };
                             }
                             gananciasPorProducto[p.nombre].unidades += p.cantidad;
                             gananciasPorProducto[p.nombre].ingresoBruto += p.precio * p.cantidad;
@@ -963,182 +949,112 @@
                     });
                     
                     const gananciaBrutaTotal = ventasTotales - costosTotales;
-                    const gananciaNetaTotalCalc = gananciaBrutaTotal - (gananciaBrutaTotal * IVA_CHILE);
+                    const gananciaNetaTotal = gananciaBrutaTotal - (gananciaBrutaTotal * IVA_CHILE);
                     
-                    // Mostrar tarjetas de finanzas
                     document.getElementById('finanzasStats').innerHTML = `
-                        <div class="stat-card">
-                            <h3>💰 Inversión en Stock</h3>
-                            <div class="value">$${inversionTotal.toLocaleString('es-CL')}</div>
-                        </div>
-                        <div class="stat-card">
-                            <h3>📈 Valor Stock a Venta</h3>
-                            <div class="value">$${valorStockVenta.toLocaleString('es-CL')}</div>
-                        </div>
-                        <div class="stat-card profit-card">
-                            <h3>🎯 Ganancia Potencial</h3>
-                            <div class="value">$${gananciaPotencial.toLocaleString('es-CL')}</div>
-                            <small>IVA (19%): $${ivaPotencial.toLocaleString('es-CL')}</small>
-                        </div>
-                        <div class="stat-card">
-                            <h3>💵 Ventas Totales</h3>
-                            <div class="value">$${ventasTotales.toLocaleString('es-CL')}</div>
-                        </div>
-                        <div class="stat-card profit-card">
-                            <h3>📊 Ganancia Neta Real</h3>
-                            <div class="value">$${gananciaNetaTotalCalc.toLocaleString('es-CL')}</div>
-                            <small>IVA pagado: $${ivaTotal.toLocaleString('es-CL')}</small>
-                        </div>
-                        <div class="stat-card">
-                            <h3>📈 Margen de Ganancia</h3>
-                            <div class="value">${ventasTotales > 0 ? ((gananciaNetaTotalCalc / ventasTotales) * 100).toFixed(1) : 0}%</div>
-                        </div>
+                        <div class="stat-card"><h3>💰 Inversión en Stock</h3><div class="value">$${inversionTotal.toLocaleString('es-CL')}</div></div>
+                        <div class="stat-card"><h3>📈 Valor Stock Venta</h3><div class="value">$${valorStockVenta.toLocaleString('es-CL')}</div></div>
+                        <div class="stat-card profit-card"><h3>🎯 Ganancia Neta Real</h3><div class="value">$${gananciaNetaTotal.toLocaleString('es-CL')}</div></div>
+                        <div class="stat-card"><h3>💵 Ventas Totales</h3><div class="value">$${ventasTotales.toLocaleString('es-CL')}</div></div>
+                        <div class="stat-card"><h3>📊 Margen</h3><div class="value">${ventasTotales > 0 ? ((gananciaNetaTotal / ventasTotales) * 100).toFixed(1) : 0}%</div></div>
                     `;
                     
-                    // Tabla de ganancias por producto
                     const tablaGanancias = document.getElementById('tablaGanancias');
                     const productosArray = Object.values(gananciasPorProducto);
-                    
-                    if (productosArray.length === 0) {
-                        tablaGanancias.innerHTML = '运转<td colspan="8" style="text-align:center">Sin ventas registradas aún</td></tr>';
-                    } else {
+                    if (productosArray.length === 0) tablaGanancias.innerHTML = ' hilab<td colspan="8">Sin ventas registradas</tr>';
+                    else {
                         tablaGanancias.innerHTML = '';
                         productosArray.forEach(p => {
                             const ivaProducto = p.gananciaBruta * IVA_CHILE;
                             const gananciaNeta = p.gananciaBruta - ivaProducto;
-                            const margen = p.ingresoBruto > 0 ? (gananciaNeta / p.ingresoBruto) * 100 : 0;
-                            
-                            tablaGanancias.innerHTML += `
-                                <tr>
-                                    <td>${escapeHtml(p.nombre)}</td>
-                                    <td>${p.unidades}</td>
-                                    <td>$${p.ingresoBruto.toLocaleString('es-CL')}</td>
-                                    <td>$${p.costoTotal.toLocaleString('es-CL')}</td>
-                                    <td style="color: #27ae60">$${p.gananciaBruta.toLocaleString('es-CL')}</td>
-                                    <td>$${ivaProducto.toLocaleString('es-CL')}</td>
-                                    <td style="color: #27ae60">$${gananciaNeta.toLocaleString('es-CL')}</td>
-                                    <td>${margen.toFixed(1)}%</td>
-                                 </tr>
-                            `;
+                            tablaGanancias.innerHTML += `<tr><td>${escapeHtml(p.nombre)}</td><td>${p.unidades}</td>
+                            <td>$${p.ingresoBruto.toLocaleString('es-CL')}</td><td>$${p.costoTotal.toLocaleString('es-CL')}</td>
+                            <td>$${p.gananciaBruta.toLocaleString('es-CL')}</td><td>$${ivaProducto.toLocaleString('es-CL')}</td>
+                            <td style="color:#27ae60">$${gananciaNeta.toLocaleString('es-CL')}</td>
+                            <td>${((gananciaNeta / p.ingresoBruto) * 100).toFixed(1)}%</td></tr>`;
                         });
                     }
                     
-                    // Tabla de historial con impuestos
                     const historialDetalle = document.getElementById('historialVentasDetalle');
-                    if (ventas.length === 0) {
-                        historialDetalle.innerHTML = '运转<td colspan="5" style="text-align:center">Sin ventas registradas</td></tr>';
-                    } else {
+                    if (ventas.length === 0) historialDetalle.innerHTML = ' hilab<td colspan="5">Sin ventas</tr>';
+                    else {
                         historialDetalle.innerHTML = '';
                         ventas.reverse().forEach(v => {
                             const resumen = v.productos.map(p => `${p.nombre} x${p.cantidad}`).join(', ').substring(0, 60);
-                            historialDetalle.innerHTML += `
-                                <tr>
-                                    <td>${v.fecha}</td>
-                                    <td>$${v.total.toLocaleString('es-CL')}</td>
-                                    <td>$${(v.iva || v.total * IVA_CHILE).toLocaleString('es-CL')}</td>
-                                    <td>$${(v.neto || v.total * (1 - IVA_CHILE)).toLocaleString('es-CL')}</td>
-                                    <td>${escapeHtml(resumen)}</td>
-                                 </tr>
-                            `;
+                            historialDetalle.innerHTML += `<tr><td>${v.fecha}</td><td>$${v.total.toLocaleString('es-CL')}</td>
+                            <td>$${v.iva.toLocaleString('es-CL')}</td><td>$${v.neto.toLocaleString('es-CL')}</td>
+                            <td>${escapeHtml(resumen)}</td></tr>`;
                         });
                     }
                 };
             };
         }
 
-        // ==================== REPORTES GENERALES ====================
+        // ==================== REPORTES ====================
         function cargarHistorial() {
             if (!db) return;
-            
             const transaction = db.transaction(['ventas'], 'readonly');
             transaction.objectStore('ventas').getAll().onsuccess = (e) => {
                 const ventas = e.target.result.reverse();
                 const tbody = document.getElementById('historialVentas');
-                
-                if (ventas.length === 0) {
-                    tbody.innerHTML = '运转<td colspan="3" style="text-align:center">Sin ventas aún</td></tr>';
-                    return;
+                if (ventas.length === 0) tbody.innerHTML = ' hilab<td colspan="3">Sin ventas</tr>';
+                else {
+                    tbody.innerHTML = '';
+                    ventas.forEach(v => {
+                        const resumen = v.productos.map(p => `${p.nombre} x${p.cantidad}`).join(', ').substring(0, 80);
+                        tbody.innerHTML += `<tr><td>${v.fecha}</td><td>$${v.total.toLocaleString('es-CL')}</td><td>${escapeHtml(resumen)}</td></tr>`;
+                    });
                 }
-                
-                tbody.innerHTML = '';
-                ventas.forEach(v => {
-                    const resumen = v.productos.map(p => `${p.nombre} x${p.cantidad}`).join(', ').substring(0, 80);
-                    tbody.innerHTML += `运转<td>${v.fecha}</td><td>$${v.total.toLocaleString('es-CL')}</td><td>${escapeHtml(resumen)}</td></tr>`;
-                });
             };
         }
         
         function actualizarEstadisticas() {
             if (!db) return;
-            
             const tx = db.transaction(['productos', 'ventas'], 'readonly');
             tx.objectStore('productos').getAll().onsuccess = (e) => {
                 const prods = e.target.result;
                 const totalProd = prods.length;
                 const stockTotal = prods.reduce((s, p) => s + p.stock, 0);
                 const valorInv = prods.reduce((s, p) => s + (p.stock * p.costo), 0);
-                
                 tx.objectStore('ventas').getAll().onsuccess = (ev) => {
                     const ventas = ev.target.result;
                     const ingresos = ventas.reduce((s, v) => s + v.total, 0);
-                    const numVentas = ventas.length;
-                    
                     document.getElementById('statsContainer').innerHTML = `
                         <div class="stat-card"><h3>📦 Productos</h3><div class="value">${totalProd}</div></div>
                         <div class="stat-card"><h3>📊 Stock Total</h3><div class="value">${stockTotal}</div></div>
                         <div class="stat-card"><h3>💰 Valor Inventario</h3><div class="value">$${valorInv.toLocaleString('es-CL')}</div></div>
-                        <div class="stat-card"><h3>🛒 Ventas Realizadas</h3><div class="value">${numVentas}</div></div>
-                        <div class="stat-card"><h3>💵 Ingresos Totales</h3><div class="value">$${ingresos.toLocaleString('es-CL')}</div></div>
+                        <div class="stat-card"><h3>🛒 Ventas</h3><div class="value">${ventas.length}</div></div>
+                        <div class="stat-card"><h3>💵 Ingresos</h3><div class="value">$${ingresos.toLocaleString('es-CL')}</div></div>
                     `;
                 };
             };
         }
 
-        // ==================== ESCÁNER DE CÓDIGOS ====================
-        function abrirScanner(origen) {
-            scannerOrigen = origen;
-            document.getElementById('scannerModal').style.display = 'flex';
-            setTimeout(() => document.getElementById('scannerInput').focus(), 100);
-        }
-        
+        // ==================== ESCÁNER ====================
+        function abrirScanner(origen) { scannerOrigen = origen; document.getElementById('scannerModal').style.display = 'flex'; setTimeout(() => document.getElementById('scannerInput').focus(), 100); }
         function procesarEscaneo() {
             const codigo = document.getElementById('scannerInput').value.trim();
             if (!codigo) { cerrarScanner(); return; }
-            
-            if (scannerOrigen === 'inventario') {
-                document.getElementById('codigo').value = codigo;
-                cerrarScanner();
-            } else if (scannerOrigen === 'venta') {
-                if (!db) { mostrarError("Base de datos no lista"); cerrarScanner(); return; }
+            if (scannerOrigen === 'inventario') { document.getElementById('codigo').value = codigo; cerrarScanner(); }
+            else if (scannerOrigen === 'venta') {
+                if (!db) { mostrarError("BD no lista"); cerrarScanner(); return; }
                 const transaction = db.transaction(['productos'], 'readonly');
-                const idx = transaction.objectStore('productos').index('codigo');
-                idx.get(codigo).onsuccess = (e) => {
+                transaction.objectStore('productos').index('codigo').get(codigo).onsuccess = (e) => {
                     if (e.target.result) agregarAlCarrito(e.target.result);
                     else mostrarError("Producto no encontrado");
                     cerrarScanner();
                 };
-            } else {
-                cerrarScanner();
-            }
+            } else cerrarScanner();
         }
-        
-        function cerrarScanner() {
-            document.getElementById('scannerModal').style.display = 'none';
-            document.getElementById('scannerInput').value = '';
-        }
+        function cerrarScanner() { document.getElementById('scannerModal').style.display = 'none'; document.getElementById('scannerInput').value = ''; }
 
-        // ==================== FUNCIONES ADICIONALES ====================
+        // ==================== EXPORTAR/IMPORTAR ====================
         function exportarDatos() {
             if (!db) return;
             const tx = db.transaction(['productos', 'ventas'], 'readonly');
             tx.objectStore('productos').getAll().onsuccess = (e1) => {
                 tx.objectStore('ventas').getAll().onsuccess = (e2) => {
-                    const data = { 
-                        empresa: empresaActual,
-                        productos: e1.target.result, 
-                        ventas: e2.target.result,
-                        exportDate: new Date().toISOString()
-                    };
+                    const data = { empresa: empresaActual, productos: e1.target.result, ventas: e2.target.result };
                     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(blob);
@@ -1167,18 +1083,9 @@
                             const tx2 = db.transaction(['productos', 'ventas'], 'readwrite');
                             data.productos.forEach(p => tx2.objectStore('productos').add(p));
                             data.ventas.forEach(v => tx2.objectStore('ventas').add(v));
-                            tx2.oncomplete = () => {
-                                alert("Datos importados correctamente");
-                                cargarInventario();
-                                cargarHistorial();
-                                actualizarEstadisticas();
-                                actualizarFinanzas();
-                                limpiarCarrito();
-                            };
+                            tx2.oncomplete = () => { alert("Datos importados"); cargarInventario(); cargarHistorial(); actualizarEstadisticas(); actualizarFinanzas(); limpiarCarrito(); };
                         };
-                    } catch {
-                        mostrarError("Archivo inválido");
-                    }
+                    } catch { mostrarError("Archivo inválido"); }
                 };
                 reader.readAsText(file);
             };
@@ -1186,25 +1093,17 @@
         }
         
         function resetearDemo() {
-            if (!confirm("¿Resetear con datos de demostración? Se perderán los actuales")) return;
+            if (!confirm("¿Resetear con datos de demostración?")) return;
             const tx = db.transaction(['productos', 'ventas'], 'readwrite');
             tx.objectStore('productos').clear();
             tx.objectStore('ventas').clear();
             tx.oncomplete = () => {
                 const tx2 = db.transaction(['productos'], 'readwrite');
                 const store = tx2.objectStore('productos');
-                store.add({ codigo: '750123456789', nombre: 'Laptop HP 15"', precio: 650000, costo: 520000, stock: 10 });
+                store.add({ codigo: '750123456789', nombre: 'Laptop HP', precio: 650000, costo: 520000, stock: 10 });
                 store.add({ codigo: '750987654321', nombre: 'Mouse Logitech', precio: 25000, costo: 15000, stock: 25 });
                 store.add({ codigo: '750456789123', nombre: 'Teclado Mecánico', precio: 85000, costo: 55000, stock: 15 });
-                store.add({ codigo: '750789123456', nombre: 'Monitor 24"', precio: 220000, costo: 180000, stock: 8 });
-                tx2.oncomplete = () => {
-                    alert("Demo restaurada");
-                    cargarInventario();
-                    cargarHistorial();
-                    actualizarEstadisticas();
-                    actualizarFinanzas();
-                    limpiarCarrito();
-                };
+                tx2.oncomplete = () => { alert("Demo restaurada"); cargarInventario(); cargarHistorial(); actualizarEstadisticas(); actualizarFinanzas(); limpiarCarrito(); };
             };
         }
         
@@ -1213,17 +1112,16 @@
             document.getElementById(tab).classList.add('active');
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             if (event && event.target) event.target.classList.add('active');
-            
             if (tab === 'finanzas') actualizarFinanzas();
-            if (tab === 'reportes') {
-                actualizarEstadisticas();
-                cargarHistorial();
-            }
+            if (tab === 'reportes') { actualizarEstadisticas(); cargarHistorial(); }
         }
-        
+
         // Exponer funciones globales
         window.iniciarSesion = iniciarSesion;
         window.cerrarSesion = cerrarSesion;
+        window.registrarEmpresa = registrarEmpresa;
+        window.mostrarRegistro = mostrarRegistro;
+        window.mostrarLogin = mostrarLogin;
         window.guardarProducto = guardarProducto;
         window.editarProducto = editarProducto;
         window.eliminarProducto = eliminarProducto;
@@ -1242,14 +1140,10 @@
         window.resetearDemo = resetearDemo;
         window.mostrarTab = mostrarTab;
         
-        // Eventos del escáner
         document.addEventListener('DOMContentLoaded', () => {
             const scannerInput = document.getElementById('scannerInput');
-            if (scannerInput) {
-                scannerInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') procesarEscaneo(); });
-            }
+            if (scannerInput) scannerInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') procesarEscaneo(); });
         });
-        
         window.onclick = (e) => { if (e.target === document.getElementById('scannerModal')) cerrarScanner(); };
     </script>
 </body>
