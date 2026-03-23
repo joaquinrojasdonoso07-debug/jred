@@ -2,10 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <meta name="theme-color" content="#2c3e50">
-    <title>Sistema Integral de Gestión Empresarial</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Sistema de Gestión Empresarial - Chile</title>
     <style>
+        /* ==================== ESTILOS GLOBALES ==================== */
+        /* Reset de márgenes y paddings para consistencia */
         * {
             margin: 0;
             padding: 0;
@@ -13,12 +14,14 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        /* Fondo de la aplicación con gradiente profesional */
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
 
+        /* Contenedor principal de la aplicación */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -28,6 +31,73 @@
             overflow: hidden;
         }
 
+        /* ==================== ESTILOS DE LOGIN ==================== */
+        /* Pantalla de login - cubre toda la aplicación */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: all 0.5s;
+        }
+
+        /* Tarjeta de login */
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .login-card input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .login-card button {
+            width: 100%;
+            padding: 12px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-card button:hover {
+            background: #229954;
+        }
+
+        /* Mensaje de error en login */
+        .login-error {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* ==================== ESTILOS DE LA APP PRINCIPAL ==================== */
+        /* Header de la aplicación */
         header {
             background: #2c3e50;
             color: white;
@@ -39,22 +109,29 @@
             gap: 15px;
         }
 
-        h1 {
-            font-size: 1.8rem;
-        }
-
-        .header-buttons {
+        /* Información de la empresa en el header */
+        .empresa-info {
             display: flex;
-            gap: 10px;
+            align-items: center;
+            gap: 15px;
+            background: #34495e;
+            padding: 8px 15px;
+            border-radius: 10px;
         }
 
+        .empresa-nombre {
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        /* Botones generales */
         .btn {
             padding: 10px 20px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
-            transition: transform 0.2s, opacity 0.2s;
+            transition: transform 0.2s;
         }
 
         .btn:hover {
@@ -67,10 +144,12 @@
         .btn-warning { background: #f39c12; color: white; }
         .btn-secondary { background: #95a5a6; color: white; }
 
+        /* Sistema de pestañas */
         .tabs {
             display: flex;
             background: #ecf0f1;
             border-bottom: 2px solid #bdc3c7;
+            flex-wrap: wrap;
         }
 
         .tab {
@@ -79,10 +158,10 @@
             text-align: center;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s;
             background: #ecf0f1;
             border: none;
             font-size: 1rem;
+            transition: all 0.3s;
         }
 
         .tab.active {
@@ -91,10 +170,11 @@
             color: #3498db;
         }
 
+        /* Contenido de las pestañas */
         .tab-content {
             display: none;
             padding: 30px;
-            animation: fadeIn 0.5s;
+            animation: fadeIn 0.3s;
         }
 
         .tab-content.active {
@@ -106,6 +186,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Formularios */
         .form-group {
             margin-bottom: 20px;
         }
@@ -123,22 +204,22 @@
             border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 1rem;
-            transition: border-color 0.3s;
         }
 
-        input:focus, select:focus {
+        input:focus {
             outline: none;
             border-color: #3498db;
         }
 
+        /* Tablas responsivas */
         .table-responsive {
             overflow-x: auto;
+            margin-top: 20px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
         }
 
         th, td {
@@ -156,10 +237,12 @@
             background: #f5f5f5;
         }
 
+        /* Productos con stock bajo */
         .inventory-low {
             background: #ffe6e6;
         }
 
+        /* Totales y cálculos */
         .total-venta {
             font-size: 1.5rem;
             font-weight: bold;
@@ -170,13 +253,10 @@
             border-radius: 10px;
         }
 
-        .search-box {
-            margin-bottom: 20px;
-        }
-
+        /* Tarjetas de estadísticas */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -195,11 +275,17 @@
         }
 
         .stat-card .value {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: bold;
             margin-top: 10px;
         }
 
+        /* Tarjeta de ganancias especial */
+        .profit-card {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        }
+
+        /* Modal del escáner */
         .modal {
             display: none;
             position: fixed;
@@ -208,9 +294,9 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.5);
-            z-index: 1000;
             justify-content: center;
             align-items: center;
+            z-index: 1000;
         }
 
         .modal-content {
@@ -221,27 +307,18 @@
             width: 90%;
         }
 
-        .error-message {
+        /* Mensajes de error */
+        .error-msg {
             background: #e74c3c;
             color: white;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
             margin-bottom: 20px;
             display: none;
         }
 
-        .loading {
-            text-align: center;
-            padding: 20px;
-            font-size: 1.2rem;
-            color: #666;
-        }
-
+        /* Responsive para móviles */
         @media (max-width: 768px) {
-            .container {
-                margin: 0;
-                border-radius: 10px;
-            }
             .tab-content {
                 padding: 15px;
             }
@@ -253,53 +330,74 @@
                 padding: 8px 12px;
                 font-size: 0.8rem;
             }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- ==================== PANTALLA DE LOGIN ==================== -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-card">
+            <h2>🏢 Sistema de Gestión</h2>
+            <h3 style="text-align:center; margin-bottom:20px; color:#666;">Iniciar Sesión</h3>
+            <input type="text" id="loginEmpresa" placeholder="Nombre de la Empresa" autocomplete="off">
+            <input type="password" id="loginPassword" placeholder="Contraseña">
+            <button onclick="iniciarSesion()">Ingresar</button>
+            <div id="loginError" class="login-error"></div>
+            <hr style="margin: 20px 0;">
+            <p style="text-align:center; font-size:0.8rem; color:#666;">Empresas de prueba:</p>
+            <p style="text-align:center; font-size:0.8rem; color:#666;">📦 MiEmpresa / admin123</p>
+            <p style="text-align:center; font-size:0.8rem; color:#666;">🛒 TiendaChile / chile2024</p>
+            <p style="text-align:center; font-size:0.8rem; color:#666;">💼 ComercialABC / abc123</p>
+        </div>
+    </div>
+
+    <!-- ==================== APLICACIÓN PRINCIPAL (oculta hasta login) ==================== -->
+    <div id="mainApp" class="container" style="display: none;">
         <header>
-            <h1>🏢 Sistema Integral de Gestión</h1>
-            <div class="header-buttons">
-                <button class="btn btn-primary" onclick="exportarDatos()">📥 Exportar Datos</button>
-                <button class="btn btn-warning" onclick="importarDatos()">📤 Importar Datos</button>
-                <button class="btn btn-secondary" onclick="resetearDatos()">🔄 Resetear Demo</button>
+            <h1>📦 Sistema de Gestión Empresarial</h1>
+            <div class="empresa-info">
+                <span>🏢 <span id="empresaNombreDisplay"></span></span>
+                <button class="btn btn-secondary" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
             </div>
         </header>
 
+        <!-- Navegación por pestañas -->
         <div class="tabs">
-            <button class="tab active" onclick="showTab('inventario')">📦 Inventario</button>
-            <button class="tab" onclick="showTab('ventas')">🛒 Punto de Venta</button>
-            <button class="tab" onclick="showTab('reportes')">📊 Reportes</button>
+            <button class="tab active" onclick="mostrarTab('inventario')">📦 Inventario</button>
+            <button class="tab" onclick="mostrarTab('ventas')">🛒 Punto de Venta</button>
+            <button class="tab" onclick="mostrarTab('finanzas')">💰 Finanzas Chile</button>
+            <button class="tab" onclick="mostrarTab('reportes')">📊 Reportes</button>
         </div>
 
-        <div id="errorMsg" class="error-message"></div>
+        <div id="errorBox" class="error-msg"></div>
 
+        <!-- ==================== PANEL DE INVENTARIO ==================== -->
         <div id="inventario" class="tab-content active">
             <h2>Gestión de Inventario</h2>
-            
-            <form id="productoForm" onsubmit="guardarProducto(event)">
-                <h3>Agregar/Editar Producto</h3>
+            <form id="formProducto" onsubmit="guardarProducto(event)">
                 <input type="hidden" id="productoId">
                 <div class="form-group">
                     <label>Código de Barras *</label>
-                    <input type="text" id="codigo" required placeholder="Escanea o ingresa código">
-                    <button type="button" class="btn btn-primary" style="margin-top:5px" onclick="abrirScanner()">📷 Escanear Código</button>
+                    <input type="text" id="codigo" required placeholder="Código o escanear">
+                    <button type="button" class="btn btn-primary" style="margin-top:5px" onclick="abrirScanner('inventario')">📷 Escanear Código</button>
                 </div>
                 <div class="form-group">
                     <label>Nombre del Producto *</label>
                     <input type="text" id="nombre" required>
                 </div>
                 <div class="form-group">
-                    <label>Precio de Venta *</label>
-                    <input type="number" id="precio" step="0.01" required>
+                    <label>Precio de Venta * (CLP)</label>
+                    <input type="number" id="precio" step="1" required placeholder="$">
                 </div>
                 <div class="form-group">
-                    <label>Precio de Compra</label>
-                    <input type="number" id="costo" step="0.01">
+                    <label>Precio de Compra * (CLP)</label>
+                    <input type="number" id="costo" step="1" required placeholder="$">
                 </div>
                 <div class="form-group">
-                    <label>Stock Inicial *</label>
+                    <label>Cantidad en Stock *</label>
                     <input type="number" id="stock" step="1" required>
                 </div>
                 <button type="submit" class="btn btn-success">💾 Guardar Producto</button>
@@ -307,403 +405,392 @@
             </form>
 
             <div class="table-responsive">
-                <table id="tablaInventario">
+                <table>
                     <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Nombre</th>
-                            <th>Precio Venta</th>
-                            <th>Costo</th>
-                            <th>Stock</th>
-                            <th>Valor Inventario</th>
-                            <th>Acciones</th>
-                        </tr>
+                        <tr><th>Código</th><th>Nombre</th><th>Precio Venta</th><th>Costo</th><th>Stock</th><th>Ganancia Unidad</th><th>Valor Inventario</th><th>Acciones</th>
                     </thead>
-                    <tbody id="inventarioBody">
-                        <tr><td colspan="7" class="loading">Cargando productos...</td></tr>
-                    </tbody>
+                    <tbody id="tablaInventario"></tbody>
                 </table>
             </div>
         </div>
 
+        <!-- ==================== PANEL DE VENTAS ==================== -->
         <div id="ventas" class="tab-content">
             <h2>Punto de Venta</h2>
-            
             <div class="search-box">
-                <label>Buscar por código o nombre:</label>
-                <input type="text" id="buscarProducto" placeholder="Escanear código o buscar..." onkeyup="buscarProductoVenta(event)">
-                <button class="btn btn-primary" onclick="abrirScannerVenta()" style="margin-top:5px">📷 Escanear Código</button>
+                <input type="text" id="buscarVenta" placeholder="Buscar por código o nombre..." onkeyup="buscarProductoVenta(event)">
+                <button class="btn btn-primary" onclick="abrirScanner('venta')" style="margin-top:5px">📷 Escanear Código</button>
             </div>
 
             <div class="table-responsive">
                 <table>
                     <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Producto</th>
-                            <th>Precio</th>
-                            <th>Cantidad</th>
-                            <th>Subtotal</th>
-                            <th>Acción</th>
-                        </tr>
+                        <tr><th>Código</th><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th><th>Acción</th></tr>
                     </thead>
                     <tbody id="carritoBody"></tbody>
                 </table>
             </div>
-            
-            <div class="total-venta">
-                Total: $<span id="totalVenta">0.00</span>
-            </div>
-            
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button class="btn btn-success" onclick="finalizarVenta()">✅ Finalizar Venta</button>
-                <button class="btn btn-danger" onclick="limpiarCarrito()">🗑️ Limpiar Carrito</button>
+            <div class="total-venta">Total Venta: $<span id="totalVenta">0</span></div>
+            <div style="display:flex; gap:10px; margin-top:20px">
+                <button class="btn btn-success" onclick="finalizarVenta()">✅ Cobrar Venta</button>
+                <button class="btn btn-danger" onclick="limpiarCarrito()">🗑 Vaciar Carrito</button>
             </div>
         </div>
 
-        <div id="reportes" class="tab-content">
-            <h2>Dashboard de Reportes</h2>
+        <!-- ==================== PANEL DE FINANZAS (con impuestos chilenos) ==================== -->
+        <div id="finanzas" class="tab-content">
+            <h2>💰 Análisis Financiero - Chile</h2>
             
-            <div class="stats-grid" id="statsContainer">
-                <div class="stat-card"><h3>Cargando...</h3><div class="value">-</div></div>
+            <!-- Tarjetas de resumen financiero -->
+            <div class="stats-grid" id="finanzasStats">
+                <!-- Se llena dinámicamente -->
             </div>
-            
-            <h3>Historial de Ventas</h3>
+
+            <h3>📊 Detalle de Ganancias por Producto</h3>
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
-                            <th>Fecha</th>
-                            <th>Total</th>
-                            <th>Productos</th>
+                            <th>Producto</th>
+                            <th>Unidades Vendidas</th>
+                            <th>Ingreso Bruto</th>
+                            <th>Costo Total</th>
+                            <th>Ganancia Bruta</th>
+                            <th>IVA (19%)</th>
+                            <th>Ganancia Neta</th>
+                            <th>Margen</th>
                         </tr>
                     </thead>
-                    <tbody id="historialVentasBody">
-                        <tr><td colspan="3" class="loading">Cargando historial...</td></tr>
-                    </tbody>
+                    <tbody id="tablaGanancias"></tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top:30px;">📈 Resumen de Ventas con Impuestos</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr><th>Fecha</th><th>Total Venta</th><th>IVA (19%)</th><th>Neto</th><th>Productos</th></tr>
+                    </thead>
+                    <tbody id="historialVentasDetalle"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ==================== PANEL DE REPORTES ==================== -->
+        <div id="reportes" class="tab-content">
+            <h2>📈 Reportes Generales</h2>
+            <div class="stats-grid" id="statsContainer"></div>
+            <h3>Historial de Ventas</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Fecha</th><th>Total</th><th>Productos</th></tr></thead>
+                    <tbody id="historialVentas"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
+    <!-- Modal para escáner de códigos -->
     <div id="scannerModal" class="modal">
         <div class="modal-content">
-            <h3>Escáner de Código de Barras</h3>
-            <p>Escanea el código de barras:</p>
-            <input type="text" id="scannerInput" placeholder="Código escaneado..." autofocus>
-            <div style="margin-top: 15px; display: flex; gap: 10px;">
+            <h3>📷 Escáner de Código de Barras</h3>
+            <input type="text" id="scannerInput" placeholder="Escanea o ingresa el código..." autofocus>
+            <div style="margin-top:15px; display:flex; gap:10px">
                 <button class="btn btn-success" onclick="procesarEscaneo()">Aceptar</button>
                 <button class="btn btn-danger" onclick="cerrarScanner()">Cancelar</button>
             </div>
-            <p style="margin-top: 10px; font-size: 12px; color: #666;">* En Android, el enfoque automático funciona con lectores físicos</p>
+            <p style="margin-top:10px; font-size:12px; color:#666;">* En Android, el lector físico enviará el código automáticamente</p>
         </div>
     </div>
 
     <script>
         // ==================== VARIABLES GLOBALES ====================
+        // db: base de datos IndexedDB (almacenamiento local del navegador)
+        // empresaActual: empresa que ha iniciado sesión
+        // carrito: productos seleccionados para la venta actual
         let db = null;
+        let empresaActual = null;
         let carrito = [];
         let scannerOrigen = null;
-        let dbInicializada = false;
 
-        // Configuración de IndexedDB
-        const DB_NAME = 'GestionEmpresarialDB';
-        const DB_VERSION = 3; // Incrementado para forzar actualización
+        // ==================== CONFIGURACIÓN DE IMPUESTOS CHILENOS ====================
+        // En Chile, el IVA es del 19% sobre el valor de la venta
+        const IVA_CHILE = 0.19; // 19%
 
-        // ==================== FUNCIÓN PRINCIPAL: ABRIR BASE DE DATOS ====================
-        function abrirBaseDatos() {
-            console.log('Intentando abrir base de datos...');
+        // ==================== EMPRESAS REGISTRADAS (Base de datos de empresas) ====================
+        // Cada empresa tiene su propio espacio de datos en IndexedDB
+        const empresasRegistradas = {
+            'MiEmpresa': { password: 'admin123', nombre: 'Mi Empresa SpA', rut: '76.123.456-7' },
+            'TiendaChile': { password: 'chile2024', nombre: 'Tienda Chile Ltda', rut: '77.987.654-3' },
+            'ComercialABC': { password: 'abc123', nombre: 'Comercial ABC S.A.', rut: '78.456.789-2' }
+        };
+
+        // ==================== FUNCIONES DE LOGIN ====================
+        function iniciarSesion() {
+            const empresaId = document.getElementById('loginEmpresa').value.trim();
+            const password = document.getElementById('loginPassword').value;
             
-            // Verificar si el navegador soporta IndexedDB
-            if (!window.indexedDB) {
-                mostrarError('Tu navegador no soporta IndexedDB. Por favor, actualiza tu navegador.');
+            if (!empresaId || !password) {
+                document.getElementById('loginError').textContent = 'Por favor ingresa empresa y contraseña';
                 return;
             }
             
-            const request = indexedDB.open(DB_NAME, DB_VERSION);
+            const empresa = empresasRegistradas[empresaId];
+            if (!empresa || empresa.password !== password) {
+                document.getElementById('loginError').textContent = 'Empresa o contraseña incorrecta';
+                return;
+            }
             
-            request.onerror = function(event) {
-                console.error('Error al abrir base de datos:', event.target.error);
-                mostrarError('Error al abrir la base de datos: ' + (event.target.error ? event.target.error.message : 'Error desconocido'));
+            // Login exitoso
+            empresaActual = {
+                id: empresaId,
+                nombre: empresa.nombre,
+                rut: empresa.rut
             };
             
-            request.onblocked = function(event) {
-                console.warn('Base de datos bloqueada');
-                mostrarError('La base de datos está bloqueada. Cierra otras pestañas de esta aplicación y recarga.');
-            };
+            // Mostrar nombre de empresa en el header
+            document.getElementById('empresaNombreDisplay').textContent = `${empresa.nombre} (${empresa.rut})`;
             
-            request.onsuccess = function(event) {
-                db = event.target.result;
-                console.log('✅ Base de datos abierta correctamente');
-                dbInicializada = true;
-                ocultarError();
-                
-                // Cargar datos iniciales
+            // Ocultar pantalla de login y mostrar aplicación
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            
+            // Inicializar base de datos para esta empresa
+            iniciarBD();
+        }
+        
+        function cerrarSesion() {
+            // Cerrar sesión y volver a pantalla de login
+            empresaActual = null;
+            db = null;
+            carrito = [];
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('mainApp').style.display = 'none';
+            document.getElementById('loginEmpresa').value = '';
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('loginError').textContent = '';
+        }
+
+        // ==================== BASE DE DATOS INDEXEDDB (Separada por empresa) ====================
+        // Cada empresa tiene su propia base de datos: Gestion_ + nombreEmpresa
+        function iniciarBD() {
+            if (!empresaActual) return;
+            
+            // Nombre único de base de datos por empresa
+            const dbName = `Gestion_${empresaActual.id}`;
+            const dbVersion = 1;
+            
+            if (!window.indexedDB) {
+                mostrarError("Tu navegador no soporta IndexedDB. Usa Chrome, Firefox o Edge.");
+                return;
+            }
+            
+            const request = indexedDB.open(dbName, dbVersion);
+            
+            request.onerror = () => mostrarError("Error al abrir la base de datos");
+            
+            request.onsuccess = (e) => {
+                db = e.target.result;
+                console.log(`Base de datos cargada para ${empresaActual.nombre}`);
                 cargarInventario();
-                cargarHistorialVentas();
+                cargarHistorial();
                 actualizarEstadisticas();
+                actualizarFinanzas();
             };
             
-            request.onupgradeneeded = function(event) {
-                const db = event.target.result;
-                console.log('🔄 Actualizando/creando estructura de base de datos...');
+            request.onupgradeneeded = (e) => {
+                const db = e.target.result;
                 
                 // Crear almacén de productos si no existe
                 if (!db.objectStoreNames.contains('productos')) {
-                    const productosStore = db.createObjectStore('productos', { keyPath: 'id', autoIncrement: true });
-                    productosStore.createIndex('codigo', 'codigo', { unique: true });
-                    productosStore.createIndex('nombre', 'nombre');
-                    console.log('✅ Almacén "productos" creado');
+                    const store = db.createObjectStore('productos', { keyPath: 'id', autoIncrement: true });
+                    store.createIndex('codigo', 'codigo', { unique: true });
                 }
                 
                 // Crear almacén de ventas si no existe
                 if (!db.objectStoreNames.contains('ventas')) {
-                    const ventasStore = db.createObjectStore('ventas', { keyPath: 'id', autoIncrement: true });
-                    ventasStore.createIndex('fecha', 'fecha');
-                    console.log('✅ Almacén "ventas" creado');
+                    db.createObjectStore('ventas', { keyPath: 'id', autoIncrement: true });
                 }
                 
-                // Solo agregar datos de demostración si es una nueva base de datos (versión anterior no existía)
-                const transaction = event.target.transaction;
+                // Datos de demostración para la empresa
+                const transaction = e.target.transaction;
                 const productosStore = transaction.objectStore('productos');
                 
-                // Verificar si ya hay datos usando el evento de transacción
-                productosStore.count().onsuccess = function(e) {
-                    if (e.target.result === 0) {
-                        console.log('📦 Agregando productos de demostración...');
-                        const productosDemo = [
-                            { codigo: '750123456789', nombre: 'Laptop HP', precio: 8500.00, costo: 7000.00, stock: 10 },
-                            { codigo: '750987654321', nombre: 'Mouse Logitech', precio: 350.00, costo: 200.00, stock: 25 },
-                            { codigo: '750456789123', nombre: 'Teclado Mecánico', precio: 1200.00, costo: 800.00, stock: 15 },
-                            { codigo: '750789123456', nombre: 'Monitor 24"', precio: 3200.00, costo: 2500.00, stock: 8 }
-                        ];
-                        
-                        productosDemo.forEach(p => {
-                            productosStore.add(p);
-                        });
-                        console.log('✅ Productos de demostración agregados');
+                productosStore.count().onsuccess = (ev) => {
+                    if (ev.target.result === 0) {
+                        // Productos de ejemplo con costos reales
+                        productosStore.add({ codigo: '750123456789', nombre: 'Laptop HP 15"', precio: 650000, costo: 520000, stock: 10 });
+                        productosStore.add({ codigo: '750987654321', nombre: 'Mouse Logitech', precio: 25000, costo: 15000, stock: 25 });
+                        productosStore.add({ codigo: '750456789123', nombre: 'Teclado Mecánico', precio: 85000, costo: 55000, stock: 15 });
+                        productosStore.add({ codigo: '750789123456', nombre: 'Monitor 24"', precio: 220000, costo: 180000, stock: 8 });
+                        productosStore.add({ codigo: '780123456789', nombre: 'Silla Gamer', precio: 350000, costo: 280000, stock: 5 });
                     }
                 };
             };
         }
 
         // ==================== FUNCIONES DE UTILIDAD ====================
-        function mostrarError(mensaje) {
-            const errorDiv = document.getElementById('errorMsg');
-            errorDiv.textContent = '❌ ' + mensaje;
-            errorDiv.style.display = 'block';
-            console.error(mensaje);
-            
-            // Ocultar después de 5 segundos
-            setTimeout(() => {
-                if (errorDiv) errorDiv.style.display = 'none';
-            }, 5000);
+        function mostrarError(msg) {
+            const box = document.getElementById('errorBox');
+            box.textContent = '⚠️ ' + msg;
+            box.style.display = 'block';
+            setTimeout(() => box.style.display = 'none', 4000);
         }
         
-        function ocultarError() {
-            const errorDiv = document.getElementById('errorMsg');
-            if (errorDiv) errorDiv.style.display = 'none';
-        }
-        
-        function esperarBaseDatos(callback) {
-            if (db && dbInicializada) {
-                callback();
-            } else {
-                setTimeout(() => esperarBaseDatos(callback), 100);
-            }
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
-        // ==================== FUNCIONES DE INVENTARIO ====================
+        // ==================== INVENTARIO (CRUD completo) ====================
         function cargarInventario() {
-            if (!db) {
-                setTimeout(() => cargarInventario(), 500);
-                return;
-            }
+            if (!db) return;
             
-            try {
-                const transaction = db.transaction(['productos'], 'readonly');
-                const productosStore = transaction.objectStore('productos');
-                const request = productosStore.getAll();
+            const transaction = db.transaction(['productos'], 'readonly');
+            const store = transaction.objectStore('productos');
+            store.getAll().onsuccess = (e) => {
+                const productos = e.target.result;
+                const tbody = document.getElementById('tablaInventario');
                 
-                request.onsuccess = function(event) {
-                    const productos = event.target.result;
-                    const tbody = document.getElementById('inventarioBody');
-                    
-                    if (!tbody) return;
-                    
-                    if (productos.length === 0) {
-                        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center">No hay productos. Agrega tu primer producto ↑</td></tr>';
-                        return;
-                    }
-                    
-                    tbody.innerHTML = '';
-                    
-                    productos.forEach(producto => {
-                        const row = tbody.insertRow();
-                        const valorInventario = producto.stock * (producto.costo || producto.precio);
-                        if (producto.stock < 5) row.className = 'inventory-low';
-                        
-                        row.innerHTML = `
-                            <td>${producto.codigo}</td>
-                            <td>${escapeHtml(producto.nombre)}</td>
-                            <td>$${producto.precio.toFixed(2)}</td>
-                            <td>$${(producto.costo || 0).toFixed(2)}</td>
-                            <td>${producto.stock}</td>
-                            <td>$${valorInventario.toFixed(2)}</td>
-                            <td>
-                                <button class="btn btn-primary" onclick="editarProducto(${producto.id})">✏️ Editar</button>
-                                <button class="btn btn-danger" onclick="eliminarProducto(${producto.id})">🗑️ Eliminar</button>
-                            </td>
-                        `;
-                    });
-                    
-                    actualizarEstadisticas();
-                };
+                if (productos.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center">Sin productos. Agrega tu primer producto ↑</td></tr>';
+                    return;
+                }
                 
-                request.onerror = function(event) {
-                    console.error('Error al cargar inventario:', event.target.error);
-                    mostrarError('Error al cargar el inventario');
-                };
-            } catch (error) {
-                console.error('Error en cargarInventario:', error);
-                mostrarError('Error al cargar inventario: ' + error.message);
-            }
+                tbody.innerHTML = '';
+                productos.forEach(p => {
+                    const gananciaUnidad = p.precio - p.costo;
+                    const valorInventario = p.stock * p.costo;
+                    const row = tbody.insertRow();
+                    
+                    if (p.stock < 5) row.className = 'inventory-low';
+                    
+                    row.innerHTML = `
+                        <td>${p.codigo}</td>
+                        <td>${escapeHtml(p.nombre)}</td>
+                        <td>$${p.precio.toLocaleString('es-CL')}</td>
+                        <td>$${p.costo.toLocaleString('es-CL')}</td>
+                        <td>${p.stock}</td>
+                        <td style="color: ${gananciaUnidad > 0 ? '#27ae60' : '#e74c3c'}">$${gananciaUnidad.toLocaleString('es-CL')}</td>
+                        <td>$${valorInventario.toLocaleString('es-CL')}</td>
+                        <td>
+                            <button class="btn btn-primary" onclick="editarProducto(${p.id})">✏️</button>
+                            <button class="btn btn-danger" onclick="eliminarProducto(${p.id})">🗑️</button>
+                        </td>
+                    `;
+                });
+                actualizarEstadisticas();
+                actualizarFinanzas();
+            };
         }
         
-        function guardarProducto(event) {
-            event.preventDefault();
-            
-            if (!db) {
-                mostrarError('Base de datos no inicializada. Espera un momento...');
-                return;
-            }
+        function guardarProducto(e) {
+            e.preventDefault();
+            if (!db) return;
             
             const id = document.getElementById('productoId').value;
             const codigo = document.getElementById('codigo').value.trim();
             const nombre = document.getElementById('nombre').value.trim();
-            const precio = parseFloat(document.getElementById('precio').value);
-            const costo = parseFloat(document.getElementById('costo').value) || 0;
+            const precio = parseInt(document.getElementById('precio').value);
+            const costo = parseInt(document.getElementById('costo').value);
             const stock = parseInt(document.getElementById('stock').value);
             
-            if (!codigo || !nombre || isNaN(precio) || isNaN(stock)) {
-                mostrarError('Por favor complete todos los campos requeridos');
+            if (!codigo || !nombre || isNaN(precio) || isNaN(costo) || isNaN(stock)) {
+                mostrarError("Completa todos los campos obligatorios");
+                return;
+            }
+            
+            if (precio <= costo) {
+                mostrarError("El precio de venta debe ser mayor al costo para tener ganancia");
                 return;
             }
             
             const producto = { codigo, nombre, precio, costo, stock };
-            
             const transaction = db.transaction(['productos'], 'readwrite');
-            const productosStore = transaction.objectStore('productos');
+            const store = transaction.objectStore('productos');
             
             if (id) {
                 producto.id = parseInt(id);
-                const request = productosStore.put(producto);
-                request.onsuccess = () => {
-                    alert('✅ Producto actualizado');
+                store.put(producto).onsuccess = () => {
+                    alert("Producto actualizado");
                     cancelarEdicion();
                     cargarInventario();
                 };
-                request.onerror = () => mostrarError('Error al actualizar producto');
             } else {
-                const index = productosStore.index('codigo');
-                const existeRequest = index.get(codigo);
-                
-                existeRequest.onsuccess = function(e) {
-                    if (e.target.result) {
-                        mostrarError('Ya existe un producto con ese código de barras');
+                const idx = store.index('codigo');
+                idx.get(codigo).onsuccess = (ev) => {
+                    if (ev.target.result) {
+                        mostrarError("Ya existe un producto con ese código");
                         return;
                     }
-                    const addRequest = productosStore.add(producto);
-                    addRequest.onsuccess = () => {
-                        alert('✅ Producto agregado');
-                        document.getElementById('productoForm').reset();
-                        document.getElementById('productoId').value = '';
+                    store.add(producto).onsuccess = () => {
+                        alert("Producto agregado");
+                        document.getElementById('formProducto').reset();
                         cargarInventario();
                     };
-                    addRequest.onerror = () => mostrarError('Error al agregar producto');
                 };
             }
         }
         
         function editarProducto(id) {
-            if (!db) return;
-            
             const transaction = db.transaction(['productos'], 'readonly');
-            const productosStore = transaction.objectStore('productos');
-            const request = productosStore.get(id);
-            
-            request.onsuccess = function(event) {
-                const p = event.target.result;
-                if (p) {
-                    document.getElementById('productoId').value = p.id;
-                    document.getElementById('codigo').value = p.codigo;
-                    document.getElementById('nombre').value = p.nombre;
-                    document.getElementById('precio').value = p.precio;
-                    document.getElementById('costo').value = p.costo || '';
-                    document.getElementById('stock').value = p.stock;
-                    document.getElementById('productoForm').scrollIntoView({ behavior: 'smooth' });
-                }
+            transaction.objectStore('productos').get(id).onsuccess = (e) => {
+                const p = e.target.result;
+                document.getElementById('productoId').value = p.id;
+                document.getElementById('codigo').value = p.codigo;
+                document.getElementById('nombre').value = p.nombre;
+                document.getElementById('precio').value = p.precio;
+                document.getElementById('costo').value = p.costo;
+                document.getElementById('stock').value = p.stock;
             };
         }
         
         function eliminarProducto(id) {
-            if (!confirm('⚠️ ¿Eliminar este producto? Se perderá el stock asociado')) return;
-            if (!db) return;
-            
+            if (!confirm("¿Eliminar este producto permanentemente?")) return;
             const transaction = db.transaction(['productos'], 'readwrite');
-            const productosStore = transaction.objectStore('productos');
-            const request = productosStore.delete(id);
-            
-            request.onsuccess = () => {
-                alert('✅ Producto eliminado');
+            transaction.objectStore('productos').delete(id).onsuccess = () => {
                 cargarInventario();
+                actualizarFinanzas();
             };
-            request.onerror = () => mostrarError('Error al eliminar producto');
         }
         
         function cancelarEdicion() {
             document.getElementById('productoId').value = '';
-            document.getElementById('productoForm').reset();
+            document.getElementById('formProducto').reset();
         }
-        
-        // ==================== FUNCIONES DE VENTAS ====================
+
+        // ==================== VENTAS (Punto de venta con control de stock) ====================
         function buscarProductoVenta(event) {
-            const busqueda = event.target.value.trim().toLowerCase();
-            if (busqueda === '') return;
+            const texto = event.target.value.trim().toLowerCase();
+            if (!texto) return;
             if (!db) return;
             
             const transaction = db.transaction(['productos'], 'readonly');
-            const productosStore = transaction.objectStore('productos');
-            const request = productosStore.getAll();
-            
-            request.onsuccess = function(e) {
-                const productos = e.target.result;
-                const encontrado = productos.find(p => 
-                    p.codigo.toLowerCase() === busqueda || 
-                    p.nombre.toLowerCase().includes(busqueda)
+            transaction.objectStore('productos').getAll().onsuccess = (e) => {
+                const producto = e.target.result.find(p => 
+                    p.codigo.toLowerCase() === texto || p.nombre.toLowerCase().includes(texto)
                 );
-                
-                if (encontrado) {
-                    agregarAlCarrito(encontrado);
-                    document.getElementById('buscarProducto').value = '';
-                } else if (busqueda.length > 3) {
-                    mostrarError('Producto no encontrado');
+                if (producto) {
+                    agregarAlCarrito(producto);
+                    document.getElementById('buscarVenta').value = '';
+                } else if (texto.length > 2) {
+                    mostrarError("Producto no encontrado");
                 }
             };
         }
         
-        function agregarAlCarrito(producto, cantidad = 1) {
-            const existente = carrito.find(item => item.id === producto.id);
-            
+        function agregarAlCarrito(producto, cant = 1) {
+            const existente = carrito.find(i => i.id === producto.id);
             if (existente) {
-                if (existente.cantidad + cantidad > producto.stock) {
-                    mostrarError(`Stock insuficiente. Solo quedan ${producto.stock} unidades`);
+                if (existente.cantidad + cant > producto.stock) {
+                    mostrarError(`Stock insuficiente. Quedan ${producto.stock} unidades`);
                     return;
                 }
-                existente.cantidad += cantidad;
+                existente.cantidad += cant;
             } else {
-                if (cantidad > producto.stock) {
-                    mostrarError(`Stock insuficiente. Solo quedan ${producto.stock} unidades`);
+                if (cant > producto.stock) {
+                    mostrarError(`Stock insuficiente. Solo hay ${producto.stock} unidades`);
                     return;
                 }
                 carrito.push({
@@ -711,241 +798,323 @@
                     codigo: producto.codigo,
                     nombre: producto.nombre,
                     precio: producto.precio,
-                    cantidad: cantidad,
-                    stockDisponible: producto.stock
+                    costo: producto.costo,
+                    cantidad: cant,
+                    stockMax: producto.stock
                 });
             }
-            
-            actualizarCarritoUI();
+            actualizarCarrito();
         }
         
-        function actualizarCarritoUI() {
+        function actualizarCarrito() {
             const tbody = document.getElementById('carritoBody');
-            if (!tbody) return;
-            
             tbody.innerHTML = '';
             let total = 0;
             
-            carrito.forEach((item, index) => {
+            carrito.forEach((item, i) => {
                 const subtotal = item.precio * item.cantidad;
                 total += subtotal;
-                const row = tbody.insertRow();
-                row.innerHTML = `
-                    <td>${item.codigo}</td>
-                    <td>${escapeHtml(item.nombre)}</td>
-                    <td>$${item.precio.toFixed(2)}</td>
-                    <td>
-                        <input type="number" value="${item.cantidad}" min="1" max="${item.stockDisponible}" 
-                               onchange="actualizarCantidad(${index}, this.value)" style="width:70px">
-                    </td>
-                    <td>$${subtotal.toFixed(2)}</td>
-                    <td><button class="btn btn-danger" onclick="eliminarDelCarrito(${index})">❌</button></td>
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${item.codigo}</td>
+                        <td>${escapeHtml(item.nombre)}</td>
+                        <td>$${item.precio.toLocaleString('es-CL')}</td>
+                        <td><input type="number" value="${item.cantidad}" min="1" max="${item.stockMax}" style="width:70px" onchange="cambiarCantidad(${i}, this.value)"></td>
+                        <td>$${subtotal.toLocaleString('es-CL')}</td>
+                        <td><button class="btn btn-danger" onclick="eliminarDelCarrito(${i})">❌</button></td>
+                    </tr>
                 `;
             });
-            
-            document.getElementById('totalVenta').innerText = total.toFixed(2);
+            document.getElementById('totalVenta').innerText = total.toLocaleString('es-CL');
         }
         
-        function actualizarCantidad(index, nuevaCantidad) {
-            const cantidad = parseInt(nuevaCantidad);
-            if (isNaN(cantidad) || cantidad < 1) return;
-            
-            const item = carrito[index];
-            if (cantidad > item.stockDisponible) {
-                mostrarError(`Stock máximo disponible: ${item.stockDisponible}`);
-                actualizarCarritoUI();
+        function cambiarCantidad(index, nueva) {
+            const cant = parseInt(nueva);
+            if (isNaN(cant) || cant < 1) return;
+            if (cant > carrito[index].stockMax) {
+                mostrarError("Stock máximo superado");
+                actualizarCarrito();
                 return;
             }
-            
-            item.cantidad = cantidad;
-            actualizarCarritoUI();
+            carrito[index].cantidad = cant;
+            actualizarCarrito();
         }
         
         function eliminarDelCarrito(index) {
             carrito.splice(index, 1);
-            actualizarCarritoUI();
+            actualizarCarrito();
         }
         
         function limpiarCarrito() {
             carrito = [];
-            actualizarCarritoUI();
+            actualizarCarrito();
         }
         
         function finalizarVenta() {
             if (carrito.length === 0) {
-                mostrarError('No hay productos en el carrito');
+                mostrarError("Carrito vacío");
                 return;
             }
             
-            if (!confirm('✅ ¿Confirmar venta? Se descontará del inventario')) return;
-            if (!db) return;
+            const totalVenta = carrito.reduce((s, i) => s + (i.precio * i.cantidad), 0);
+            const iva = totalVenta * IVA_CHILE;
+            const neto = totalVenta - iva;
             
-            const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-            const fecha = new Date().toLocaleString();
+            if (!confirm(`Total Venta: $${totalVenta.toLocaleString('es-CL')}\nIVA (19%): $${iva.toLocaleString('es-CL')}\nNeto: $${neto.toLocaleString('es-CL')}\n\n¿Confirmar venta?`)) return;
+            
+            const fecha = new Date().toLocaleString('es-CL');
             
             const transaction = db.transaction(['productos', 'ventas'], 'readwrite');
-            const productosStore = transaction.objectStore('productos');
+            const prodStore = transaction.objectStore('productos');
             const ventasStore = transaction.objectStore('ventas');
             
-            let operacionesPendientes = carrito.length;
-            let errorOcurrido = false;
+            let pendientes = carrito.length;
+            let error = false;
             
             carrito.forEach(item => {
-                const request = productosStore.get(item.id);
-                request.onsuccess = function(e) {
-                    const producto = e.target.result;
-                    if (producto && producto.stock >= item.cantidad) {
-                        producto.stock -= item.cantidad;
-                        productosStore.put(producto);
+                prodStore.get(item.id).onsuccess = (e) => {
+                    const prod = e.target.result;
+                    if (prod.stock >= item.cantidad) {
+                        prod.stock -= item.cantidad;
+                        prodStore.put(prod);
                     } else {
-                        errorOcurrido = true;
-                        mostrarError(`Stock insuficiente para ${producto.nombre}`);
+                        error = true;
+                        mostrarError(`Stock insuficiente para ${prod.nombre}`);
                     }
-                    operacionesPendientes--;
+                    pendientes--;
                     
-                    if (operacionesPendientes === 0 && !errorOcurrido) {
-                        const venta = {
+                    if (pendientes === 0 && !error) {
+                        // Guardar venta con detalles de impuestos
+                        ventasStore.add({
                             fecha: fecha,
-                            total: total,
-                            productos: carrito.map(p => ({ nombre: p.nombre, cantidad: p.cantidad, precio: p.precio }))
-                        };
-                        ventasStore.add(venta);
+                            total: totalVenta,
+                            iva: iva,
+                            neto: neto,
+                            productos: carrito.map(p => ({ 
+                                nombre: p.nombre, 
+                                cantidad: p.cantidad, 
+                                precio: p.precio,
+                                costo: p.costo,
+                                gananciaUnidad: p.precio - p.costo
+                            }))
+                        });
                         
-                        alert(`✅ Venta completada por $${total.toFixed(2)}`);
+                        alert(`✅ Venta registrada\nTotal: $${totalVenta.toLocaleString('es-CL')}\nIVA: $${iva.toLocaleString('es-CL')}`);
                         limpiarCarrito();
                         cargarInventario();
-                        cargarHistorialVentas();
+                        cargarHistorial();
                         actualizarEstadisticas();
-                    } else if (errorOcurrido) {
-                        transaction.abort();
-                        mostrarError('Error en la venta. No se realizaron cambios.');
+                        actualizarFinanzas();
                     }
                 };
             });
         }
-        
-        // ==================== FUNCIONES DE REPORTES ====================
-        function cargarHistorialVentas() {
-            if (!db) {
-                setTimeout(() => cargarHistorialVentas(), 500);
-                return;
-            }
+
+        // ==================== FINANZAS (Cálculos con impuestos chilenos) ====================
+        function actualizarFinanzas() {
+            if (!db) return;
             
-            try {
-                const transaction = db.transaction(['ventas'], 'readonly');
-                const ventasStore = transaction.objectStore('ventas');
-                const request = ventasStore.getAll();
+            const transaction = db.transaction(['productos', 'ventas'], 'readonly');
+            const prodStore = transaction.objectStore('productos');
+            const ventasStore = transaction.objectStore('ventas');
+            
+            // Obtener todos los productos para calcular inversión
+            prodStore.getAll().onsuccess = (e) => {
+                const productos = e.target.result;
+                const inversionTotal = productos.reduce((sum, p) => sum + (p.stock * p.costo), 0);
+                const valorStockVenta = productos.reduce((sum, p) => sum + (p.stock * p.precio), 0);
+                const gananciaPotencial = valorStockVenta - inversionTotal;
+                const ivaPotencial = gananciaPotencial * IVA_CHILE;
                 
-                request.onsuccess = function(e) {
-                    const ventas = e.target.result.reverse();
-                    const tbody = document.getElementById('historialVentasBody');
+                ventasStore.getAll().onsuccess = (ev) => {
+                    const ventas = ev.target.result;
                     
-                    if (!tbody) return;
+                    // Calcular ganancias reales por ventas
+                    let ventasTotales = 0;
+                    let costosTotales = 0;
+                    let ivaTotal = 0;
+                    let gananciaNetaTotal = 0;
                     
-                    if (ventas.length === 0) {
-                        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center">No hay ventas registradas</td></tr>';
-                        return;
-                    }
-                    
-                    tbody.innerHTML = '';
+                    // Estadísticas por producto
+                    const gananciasPorProducto = {};
                     
                     ventas.forEach(venta => {
-                        const row = tbody.insertRow();
-                        const productosResumen = venta.productos.map(p => `${p.nombre} x${p.cantidad}`).join(', ');
-                        row.innerHTML = `
-                            <td>${venta.fecha}</td>
-                            <td>$${venta.total.toFixed(2)}</td>
-                            <td>${escapeHtml(productosResumen.substring(0, 100))}</td>
-                        `;
+                        ventasTotales += venta.total;
+                        ivaTotal += venta.iva || (venta.total * IVA_CHILE);
+                        
+                        venta.productos.forEach(p => {
+                            const gananciaBruta = (p.precio - p.costo) * p.cantidad;
+                            costosTotales += p.costo * p.cantidad;
+                            
+                            if (!gananciasPorProducto[p.nombre]) {
+                                gananciasPorProducto[p.nombre] = {
+                                    nombre: p.nombre,
+                                    unidades: 0,
+                                    ingresoBruto: 0,
+                                    costoTotal: 0,
+                                    gananciaBruta: 0
+                                };
+                            }
+                            gananciasPorProducto[p.nombre].unidades += p.cantidad;
+                            gananciasPorProducto[p.nombre].ingresoBruto += p.precio * p.cantidad;
+                            gananciasPorProducto[p.nombre].costoTotal += p.costo * p.cantidad;
+                            gananciasPorProducto[p.nombre].gananciaBruta += gananciaBruta;
+                        });
                     });
+                    
+                    const gananciaBrutaTotal = ventasTotales - costosTotales;
+                    const gananciaNetaTotalCalc = gananciaBrutaTotal - (gananciaBrutaTotal * IVA_CHILE);
+                    
+                    // Mostrar tarjetas de finanzas
+                    document.getElementById('finanzasStats').innerHTML = `
+                        <div class="stat-card">
+                            <h3>💰 Inversión en Stock</h3>
+                            <div class="value">$${inversionTotal.toLocaleString('es-CL')}</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>📈 Valor Stock a Venta</h3>
+                            <div class="value">$${valorStockVenta.toLocaleString('es-CL')}</div>
+                        </div>
+                        <div class="stat-card profit-card">
+                            <h3>🎯 Ganancia Potencial</h3>
+                            <div class="value">$${gananciaPotencial.toLocaleString('es-CL')}</div>
+                            <small>IVA (19%): $${ivaPotencial.toLocaleString('es-CL')}</small>
+                        </div>
+                        <div class="stat-card">
+                            <h3>💵 Ventas Totales</h3>
+                            <div class="value">$${ventasTotales.toLocaleString('es-CL')}</div>
+                        </div>
+                        <div class="stat-card profit-card">
+                            <h3>📊 Ganancia Neta Real</h3>
+                            <div class="value">$${gananciaNetaTotalCalc.toLocaleString('es-CL')}</div>
+                            <small>IVA pagado: $${ivaTotal.toLocaleString('es-CL')}</small>
+                        </div>
+                        <div class="stat-card">
+                            <h3>📈 Margen de Ganancia</h3>
+                            <div class="value">${ventasTotales > 0 ? ((gananciaNetaTotalCalc / ventasTotales) * 100).toFixed(1) : 0}%</div>
+                        </div>
+                    `;
+                    
+                    // Tabla de ganancias por producto
+                    const tablaGanancias = document.getElementById('tablaGanancias');
+                    const productosArray = Object.values(gananciasPorProducto);
+                    
+                    if (productosArray.length === 0) {
+                        tablaGanancias.innerHTML = '运转<td colspan="8" style="text-align:center">Sin ventas registradas aún</td></tr>';
+                    } else {
+                        tablaGanancias.innerHTML = '';
+                        productosArray.forEach(p => {
+                            const ivaProducto = p.gananciaBruta * IVA_CHILE;
+                            const gananciaNeta = p.gananciaBruta - ivaProducto;
+                            const margen = p.ingresoBruto > 0 ? (gananciaNeta / p.ingresoBruto) * 100 : 0;
+                            
+                            tablaGanancias.innerHTML += `
+                                <tr>
+                                    <td>${escapeHtml(p.nombre)}</td>
+                                    <td>${p.unidades}</td>
+                                    <td>$${p.ingresoBruto.toLocaleString('es-CL')}</td>
+                                    <td>$${p.costoTotal.toLocaleString('es-CL')}</td>
+                                    <td style="color: #27ae60">$${p.gananciaBruta.toLocaleString('es-CL')}</td>
+                                    <td>$${ivaProducto.toLocaleString('es-CL')}</td>
+                                    <td style="color: #27ae60">$${gananciaNeta.toLocaleString('es-CL')}</td>
+                                    <td>${margen.toFixed(1)}%</td>
+                                 </tr>
+                            `;
+                        });
+                    }
+                    
+                    // Tabla de historial con impuestos
+                    const historialDetalle = document.getElementById('historialVentasDetalle');
+                    if (ventas.length === 0) {
+                        historialDetalle.innerHTML = '运转<td colspan="5" style="text-align:center">Sin ventas registradas</td></tr>';
+                    } else {
+                        historialDetalle.innerHTML = '';
+                        ventas.reverse().forEach(v => {
+                            const resumen = v.productos.map(p => `${p.nombre} x${p.cantidad}`).join(', ').substring(0, 60);
+                            historialDetalle.innerHTML += `
+                                <tr>
+                                    <td>${v.fecha}</td>
+                                    <td>$${v.total.toLocaleString('es-CL')}</td>
+                                    <td>$${(v.iva || v.total * IVA_CHILE).toLocaleString('es-CL')}</td>
+                                    <td>$${(v.neto || v.total * (1 - IVA_CHILE)).toLocaleString('es-CL')}</td>
+                                    <td>${escapeHtml(resumen)}</td>
+                                 </tr>
+                            `;
+                        });
+                    }
                 };
-            } catch (error) {
-                console.error('Error cargar historial:', error);
-            }
+            };
+        }
+
+        // ==================== REPORTES GENERALES ====================
+        function cargarHistorial() {
+            if (!db) return;
+            
+            const transaction = db.transaction(['ventas'], 'readonly');
+            transaction.objectStore('ventas').getAll().onsuccess = (e) => {
+                const ventas = e.target.result.reverse();
+                const tbody = document.getElementById('historialVentas');
+                
+                if (ventas.length === 0) {
+                    tbody.innerHTML = '运转<td colspan="3" style="text-align:center">Sin ventas aún</td></tr>';
+                    return;
+                }
+                
+                tbody.innerHTML = '';
+                ventas.forEach(v => {
+                    const resumen = v.productos.map(p => `${p.nombre} x${p.cantidad}`).join(', ').substring(0, 80);
+                    tbody.innerHTML += `运转<td>${v.fecha}</td><td>$${v.total.toLocaleString('es-CL')}</td><td>${escapeHtml(resumen)}</td></tr>`;
+                });
+            };
         }
         
         function actualizarEstadisticas() {
             if (!db) return;
             
-            try {
-                const transaction = db.transaction(['productos', 'ventas'], 'readonly');
-                const productosStore = transaction.objectStore('productos');
-                const ventasStore = transaction.objectStore('ventas');
+            const tx = db.transaction(['productos', 'ventas'], 'readonly');
+            tx.objectStore('productos').getAll().onsuccess = (e) => {
+                const prods = e.target.result;
+                const totalProd = prods.length;
+                const stockTotal = prods.reduce((s, p) => s + p.stock, 0);
+                const valorInv = prods.reduce((s, p) => s + (p.stock * p.costo), 0);
                 
-                productosStore.getAll().onsuccess = function(e) {
-                    const productos = e.target.result;
-                    const totalProductos = productos.length;
-                    const stockTotal = productos.reduce((sum, p) => sum + p.stock, 0);
-                    const valorInventario = productos.reduce((sum, p) => sum + (p.stock * (p.costo || p.precio)), 0);
+                tx.objectStore('ventas').getAll().onsuccess = (ev) => {
+                    const ventas = ev.target.result;
+                    const ingresos = ventas.reduce((s, v) => s + v.total, 0);
+                    const numVentas = ventas.length;
                     
-                    ventasStore.getAll().onsuccess = function(e2) {
-                        const ventas = e2.target.result;
-                        const totalVentas = ventas.reduce((sum, v) => sum + v.total, 0);
-                        const numeroVentas = ventas.length;
-                        
-                        const statsContainer = document.getElementById('statsContainer');
-                        if (statsContainer) {
-                            statsContainer.innerHTML = `
-                                <div class="stat-card"><h3>Total Productos</h3><div class="value">${totalProductos}</div></div>
-                                <div class="stat-card"><h3>Stock Total</h3><div class="value">${stockTotal}</div></div>
-                                <div class="stat-card"><h3>Valor Inventario</h3><div class="value">$${valorInventario.toFixed(2)}</div></div>
-                                <div class="stat-card"><h3>Ventas Realizadas</h3><div class="value">${numeroVentas}</div></div>
-                                <div class="stat-card"><h3>Ingresos Totales</h3><div class="value">$${totalVentas.toFixed(2)}</div></div>
-                            `;
-                        }
-                    };
+                    document.getElementById('statsContainer').innerHTML = `
+                        <div class="stat-card"><h3>📦 Productos</h3><div class="value">${totalProd}</div></div>
+                        <div class="stat-card"><h3>📊 Stock Total</h3><div class="value">${stockTotal}</div></div>
+                        <div class="stat-card"><h3>💰 Valor Inventario</h3><div class="value">$${valorInv.toLocaleString('es-CL')}</div></div>
+                        <div class="stat-card"><h3>🛒 Ventas Realizadas</h3><div class="value">${numVentas}</div></div>
+                        <div class="stat-card"><h3>💵 Ingresos Totales</h3><div class="value">$${ingresos.toLocaleString('es-CL')}</div></div>
+                    `;
                 };
-            } catch (error) {
-                console.error('Error actualizar estadísticas:', error);
-            }
+            };
         }
-        
-        // ==================== FUNCIONES DE ESCÁNER ====================
-        function abrirScanner() {
-            scannerOrigen = 'inventario';
-            document.getElementById('scannerModal').style.display = 'flex';
-            setTimeout(() => document.getElementById('scannerInput').focus(), 100);
-        }
-        
-        function abrirScannerVenta() {
-            scannerOrigen = 'venta';
+
+        // ==================== ESCÁNER DE CÓDIGOS ====================
+        function abrirScanner(origen) {
+            scannerOrigen = origen;
             document.getElementById('scannerModal').style.display = 'flex';
             setTimeout(() => document.getElementById('scannerInput').focus(), 100);
         }
         
         function procesarEscaneo() {
             const codigo = document.getElementById('scannerInput').value.trim();
-            if (!codigo) {
-                cerrarScanner();
-                return;
-            }
+            if (!codigo) { cerrarScanner(); return; }
             
             if (scannerOrigen === 'inventario') {
                 document.getElementById('codigo').value = codigo;
                 cerrarScanner();
             } else if (scannerOrigen === 'venta') {
-                if (!db) {
-                    mostrarError('Base de datos no lista');
-                    cerrarScanner();
-                    return;
-                }
-                
+                if (!db) { mostrarError("Base de datos no lista"); cerrarScanner(); return; }
                 const transaction = db.transaction(['productos'], 'readonly');
-                const productosStore = transaction.objectStore('productos');
-                const index = productosStore.index('codigo');
-                const request = index.get(codigo);
-                
-                request.onsuccess = function(e) {
-                    const producto = e.target.result;
-                    if (producto) {
-                        agregarAlCarrito(producto);
-                    } else {
-                        mostrarError('Producto no encontrado');
-                    }
-                    cerrarScanner();
-                };
-                request.onerror = function() {
-                    mostrarError('Error al buscar producto');
+                const idx = transaction.objectStore('productos').index('codigo');
+                idx.get(codigo).onsuccess = (e) => {
+                    if (e.target.result) agregarAlCarrito(e.target.result);
+                    else mostrarError("Producto no encontrado");
                     cerrarScanner();
                 };
             } else {
@@ -956,34 +1125,26 @@
         function cerrarScanner() {
             document.getElementById('scannerModal').style.display = 'none';
             document.getElementById('scannerInput').value = '';
-            scannerOrigen = null;
         }
-        
-        // ==================== FUNCIONES DE EXPORTACIÓN/IMPORTACIÓN ====================
+
+        // ==================== FUNCIONES ADICIONALES ====================
         function exportarDatos() {
-            if (!db) {
-                mostrarError('Base de datos no inicializada');
-                return;
-            }
-            
-            const transaction = db.transaction(['productos', 'ventas'], 'readonly');
-            const productosStore = transaction.objectStore('productos');
-            const ventasStore = transaction.objectStore('ventas');
-            
-            productosStore.getAll().onsuccess = function(e) {
-                const productos = e.target.result;
-                ventasStore.getAll().onsuccess = function(e2) {
-                    const ventas = e2.target.result;
-                    const datos = { productos, ventas, exportDate: new Date().toISOString() };
-                    const json = JSON.stringify(datos, null, 2);
-                    const blob = new Blob([json], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `backup_gestion_${new Date().toISOString().slice(0,19)}.json`;
-                    a.click();
-                    URL.revokeObjectURL(url);
-                    alert('✅ Datos exportados correctamente');
+            if (!db) return;
+            const tx = db.transaction(['productos', 'ventas'], 'readonly');
+            tx.objectStore('productos').getAll().onsuccess = (e1) => {
+                tx.objectStore('ventas').getAll().onsuccess = (e2) => {
+                    const data = { 
+                        empresa: empresaActual,
+                        productos: e1.target.result, 
+                        ventas: e2.target.result,
+                        exportDate: new Date().toISOString()
+                    };
+                    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `backup_${empresaActual.id}_${new Date().toISOString().slice(0,19)}.json`;
+                    link.click();
+                    URL.revokeObjectURL(link.href);
                 };
             };
         }
@@ -992,49 +1153,31 @@
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = 'application/json';
-            input.onchange = function(e) {
+            input.onchange = (e) => {
                 const file = e.target.files[0];
                 const reader = new FileReader();
-                reader.onload = function(event) {
+                reader.onload = (ev) => {
                     try {
-                        const datos = JSON.parse(event.target.result);
-                        if (datos.productos && datos.ventas) {
-                            if (!db) {
-                                mostrarError('Base de datos no inicializada');
-                                return;
-                            }
-                            
-                            const clearTransaction = db.transaction(['productos', 'ventas'], 'readwrite');
-                            const productosStore = clearTransaction.objectStore('productos');
-                            const ventasStore = clearTransaction.objectStore('ventas');
-                            
-                            productosStore.clear();
-                            ventasStore.clear();
-                            
-                            clearTransaction.oncomplete = function() {
-                                const addTransaction = db.transaction(['productos', 'ventas'], 'readwrite');
-                                const prodStore = addTransaction.objectStore('productos');
-                                const ventStore = addTransaction.objectStore('ventas');
-                                
-                                datos.productos.forEach(p => prodStore.add(p));
-                                datos.ventas.forEach(v => ventStore.add(v));
-                                
-                                addTransaction.oncomplete = function() {
-                                    alert('✅ Datos importados correctamente');
-                                    cargarInventario();
-                                    cargarHistorialVentas();
-                                    actualizarEstadisticas();
-                                    limpiarCarrito();
-                                };
-                                addTransaction.onerror = function() {
-                                    mostrarError('Error al importar datos');
-                                };
+                        const data = JSON.parse(ev.target.result);
+                        if (!data.productos || !data.ventas) throw new Error();
+                        const tx = db.transaction(['productos', 'ventas'], 'readwrite');
+                        tx.objectStore('productos').clear();
+                        tx.objectStore('ventas').clear();
+                        tx.oncomplete = () => {
+                            const tx2 = db.transaction(['productos', 'ventas'], 'readwrite');
+                            data.productos.forEach(p => tx2.objectStore('productos').add(p));
+                            data.ventas.forEach(v => tx2.objectStore('ventas').add(v));
+                            tx2.oncomplete = () => {
+                                alert("Datos importados correctamente");
+                                cargarInventario();
+                                cargarHistorial();
+                                actualizarEstadisticas();
+                                actualizarFinanzas();
+                                limpiarCarrito();
                             };
-                        } else {
-                            mostrarError('Formato de archivo inválido');
-                        }
-                    } catch (error) {
-                        mostrarError('Error al leer el archivo: ' + error.message);
+                        };
+                    } catch {
+                        mostrarError("Archivo inválido");
                     }
                 };
                 reader.readAsText(file);
@@ -1042,92 +1185,72 @@
             input.click();
         }
         
-        function resetearDatos() {
-            if (!confirm('⚠️ ¿Resetear todos los datos? Se perderá la información actual')) return;
-            if (!db) return;
-            
-            const transaction = db.transaction(['productos', 'ventas'], 'readwrite');
-            const productosStore = transaction.objectStore('productos');
-            const ventasStore = transaction.objectStore('ventas');
-            
-            productosStore.clear();
-            ventasStore.clear();
-            
-            const productosDemo = [
-                { codigo: '750123456789', nombre: 'Laptop HP', precio: 8500.00, costo: 7000.00, stock: 10 },
-                { codigo: '750987654321', nombre: 'Mouse Logitech', precio: 350.00, costo: 200.00, stock: 25 },
-                { codigo: '750456789123', nombre: 'Teclado Mecánico', precio: 1200.00, costo: 800.00, stock: 15 },
-                { codigo: '750789123456', nombre: 'Monitor 24"', precio: 3200.00, costo: 2500.00, stock: 8 }
-            ];
-            
-            productosDemo.forEach(p => productosStore.add(p));
-            
-            transaction.oncomplete = function() {
-                alert('✅ Datos restablecidos a valores de demostración');
-                cargarInventario();
-                cargarHistorialVentas();
-                actualizarEstadisticas();
-                limpiarCarrito();
-            };
-            transaction.onerror = function() {
-                mostrarError('Error al resetear datos');
+        function resetearDemo() {
+            if (!confirm("¿Resetear con datos de demostración? Se perderán los actuales")) return;
+            const tx = db.transaction(['productos', 'ventas'], 'readwrite');
+            tx.objectStore('productos').clear();
+            tx.objectStore('ventas').clear();
+            tx.oncomplete = () => {
+                const tx2 = db.transaction(['productos'], 'readwrite');
+                const store = tx2.objectStore('productos');
+                store.add({ codigo: '750123456789', nombre: 'Laptop HP 15"', precio: 650000, costo: 520000, stock: 10 });
+                store.add({ codigo: '750987654321', nombre: 'Mouse Logitech', precio: 25000, costo: 15000, stock: 25 });
+                store.add({ codigo: '750456789123', nombre: 'Teclado Mecánico', precio: 85000, costo: 55000, stock: 15 });
+                store.add({ codigo: '750789123456', nombre: 'Monitor 24"', precio: 220000, costo: 180000, stock: 8 });
+                tx2.oncomplete = () => {
+                    alert("Demo restaurada");
+                    cargarInventario();
+                    cargarHistorial();
+                    actualizarEstadisticas();
+                    actualizarFinanzas();
+                    limpiarCarrito();
+                };
             };
         }
         
-        // ==================== FUNCIÓN DE SEGURIDAD ====================
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-        
-        // ==================== NAVEGACIÓN ====================
-        function showTab(tabName) {
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            
-            const tabButtons = document.querySelectorAll('.tab');
-            tabButtons.forEach(btn => btn.classList.remove('active'));
+        function mostrarTab(tab) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             if (event && event.target) event.target.classList.add('active');
             
-            if (tabName === 'reportes') {
+            if (tab === 'finanzas') actualizarFinanzas();
+            if (tab === 'reportes') {
                 actualizarEstadisticas();
-                cargarHistorialVentas();
+                cargarHistorial();
             }
         }
         
-        // ==================== INICIALIZACIÓN ====================
-        // Esperar a que el DOM esté completamente cargado
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                console.log('DOM cargado, iniciando base de datos...');
-                abrirBaseDatos();
-            });
-        } else {
-            console.log('DOM ya cargado, iniciando base de datos...');
-            abrirBaseDatos();
-        }
+        // Exponer funciones globales
+        window.iniciarSesion = iniciarSesion;
+        window.cerrarSesion = cerrarSesion;
+        window.guardarProducto = guardarProducto;
+        window.editarProducto = editarProducto;
+        window.eliminarProducto = eliminarProducto;
+        window.cancelarEdicion = cancelarEdicion;
+        window.buscarProductoVenta = buscarProductoVenta;
+        window.agregarAlCarrito = agregarAlCarrito;
+        window.cambiarCantidad = cambiarCantidad;
+        window.eliminarDelCarrito = eliminarDelCarrito;
+        window.limpiarCarrito = limpiarCarrito;
+        window.finalizarVenta = finalizarVenta;
+        window.abrirScanner = abrirScanner;
+        window.procesarEscaneo = procesarEscaneo;
+        window.cerrarScanner = cerrarScanner;
+        window.exportarDatos = exportarDatos;
+        window.importarDatos = importarDatos;
+        window.resetearDemo = resetearDemo;
+        window.mostrarTab = mostrarTab;
         
-        // Evento para cerrar modal con clic fuera
-        window.onclick = function(event) {
-            const modal = document.getElementById('scannerModal');
-            if (event.target === modal) {
-                cerrarScanner();
-            }
-        };
-        
-        // Evento para tecla Enter en el escáner
-        document.addEventListener('DOMContentLoaded', function() {
+        // Eventos del escáner
+        document.addEventListener('DOMContentLoaded', () => {
             const scannerInput = document.getElementById('scannerInput');
             if (scannerInput) {
-                scannerInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        procesarEscaneo();
-                    }
-                });
+                scannerInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') procesarEscaneo(); });
             }
         });
+        
+        window.onclick = (e) => { if (e.target === document.getElementById('scannerModal')) cerrarScanner(); };
     </script>
 </body>
 </html>
